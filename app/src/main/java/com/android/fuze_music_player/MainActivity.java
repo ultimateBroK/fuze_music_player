@@ -8,7 +8,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.android.fuze_music_player.database.DatabaseHelper;
+
 public class MainActivity extends AppCompatActivity {
+
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +24,6 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        this.databaseHelper = new DatabaseHelper(this);
     }
 }

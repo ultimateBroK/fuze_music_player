@@ -40,6 +40,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 SongTable.KEY_ID
         );
         db.execSQL(create_song_history_table);
+
+
+        // Create songs table
+        String create_album_table = String.format(
+                "CREATE TABLE IF NOT EXISTS %s (%s TEXT PRIMARY KEY, %s TEXT)",
+                AlbumTable.TABLE_NAME,
+                AlbumTable.KEY_ID,
+                AlbumTable.KEY_IMG_URL
+        );
+        db.execSQL(create_album_table);
     }
 
     @Override
