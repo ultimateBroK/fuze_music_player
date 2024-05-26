@@ -5,7 +5,7 @@
 - **Tuần**: 1
 - **Ngày**: 13/05 - 19/05	
 - **Nhóm Thực Hiện**: 
-  - Thành viên 1: Nguyễn Đức Hiếu
+  - Thành viên 1: Nguyễn Đức Hiếu - trưởng nhóm
   - Thành viên 2: Vũ Tuấn Hoàng
   - Thành viên 3: Nguyễn Thành Đạt
   - Thành viên 4: Vũ Ngọc Khoa
