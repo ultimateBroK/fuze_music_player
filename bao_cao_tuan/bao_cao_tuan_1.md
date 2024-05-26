@@ -5,7 +5,7 @@
 - **Tuần**: 1
 - **Ngày**: 13/05 - 19/05	
 - **Nhóm Thực Hiện**: 
-  - Thành viên 1: Nguyễn Đức Hiếu
+  - Thành viên 1: Nguyễn Đức Hiếu - trưởng nhóm
   - Thành viên 2: Vũ Tuấn Hoàng
   - Thành viên 3: Nguyễn Thành Đạt
   - Thành viên 4: Vũ Ngọc Khoa
@@ -23,12 +23,12 @@
 - Công việc 2: Thiết kế giao diện trên Figma
 
 ### Thành viên 2: Vũ Tuấn Hoàng
-- Công việc 1:
-- Công việc 2:
+- Công việc 1:Xử lý giao diện 
+- Công việc 2:Code chức năng
 
 ### Thành viên 3: Nguyễn Thành Đạt
-- Công việc 1:
-- Công việc 2:
+- Công việc 1:Xử lý giao diện (tiếp)
+- Công việc 2:Code chức năng
 
 ### Thành viên 4: Vũ Ngọc Khoa
 - Công việc 1: Thiết kế model
