@@ -2,7 +2,7 @@
 
 ## Thông Tin Chung
 - **Tên Dự Án**: Ứng dụng nghe nhạc offline 
-- **Tuần**: 1
+- **Tuần**: 2
 - **Ngày**: 20/05 - 26/05	
 - **Nhóm Thực Hiện**: 
   - Thành viên 1: Nguyễn Đức Hiếu - trưởng nhóm
