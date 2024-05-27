@@ -32,7 +32,7 @@
 - Có chút vấn đề giao tiếp với duy nhất 1 thành viên trong nhóm
 
 ## Kế Hoạch Tuần Tới
-- Bắt đầu lập trình các chức năng cho app
+- Hoàn thành giao diện ứng dụng + lập trình chức năng và tập hợp code các thành viên để ghép vào main branch
 
 ## Nhận Xét và Đề Xuất
 (Mọi nhận xét và đề xuất để cải thiện quá trình làm việc nhóm và tiến độ dự án.)
