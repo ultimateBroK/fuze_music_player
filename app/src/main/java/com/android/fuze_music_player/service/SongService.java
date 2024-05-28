@@ -11,6 +11,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.android.fuze_music_player.database.DatabaseHelper;
+import com.android.fuze_music_player.database.SongHistoryTable;
 import com.android.fuze_music_player.database.SongTable;
 import com.android.fuze_music_player.model.SongModel;
 
@@ -160,11 +161,38 @@ public class SongService implements ISongService {
     }
 
     @Override
-    public void updateSong(SongModel song) {
-    }
-
-    @Override
     public void deleteSong(String songId) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+        // Start a transaction to ensure both deletions happen atomically
+        db.beginTransaction();
+        try {
+            // Delete from song_history first
+            String historySelection = SongHistoryTable.KEY_SONG_ID + " = ?";
+            String[] historySelectionArgs = {songId};
+
+            int deletedHistoryRows = db.delete(SongHistoryTable.TABLE_NAME, historySelection, historySelectionArgs);
+            Log.i("SongService", "Deleted " + deletedHistoryRows + " entries from song_history for song ID: " + songId);
+
+            // Delete from songs
+            String songSelection = SongTable.KEY_ID + " = ?";
+            String[] songSelectionArgs = {songId};
+
+            int deletedSongRows = db.delete(SongTable.TABLE_NAME, songSelection, songSelectionArgs);
+            if (deletedSongRows > 0) {
+                Log.i("SongService", "Song deleted with ID: " + songId);
+            } else {
+                Log.i("SongService", "No song found with ID: " + songId);
+            }
+
+            // Mark the transaction as successful
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            Log.e("SongService", "Failed to delete song: " + e);
+        } finally {
+            // End the transaction
+            db.endTransaction();
+        }
     }
+
 }
