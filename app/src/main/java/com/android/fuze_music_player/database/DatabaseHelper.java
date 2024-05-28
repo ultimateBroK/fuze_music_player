@@ -16,14 +16,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        this.db = db;
         // Create songs table
         String create_songs_table = String.format(
-                "CREATE TABLE IF NOT EXISTS %s (%s TEXT PRIMARY KEY, %s TEXT, %s TEXT, %s TEXT, %s INTEGER, %s TEXT, %s TEXT)",
+                "CREATE TABLE IF NOT EXISTS %s (%s TEXT PRIMARY KEY, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER, %s TEXT, %s TEXT UNIQUE)",
                 SongTable.TABLE_NAME,
                 SongTable.KEY_ID,
                 SongTable.KEY_TITLE,
                 SongTable.KEY_ARTIST,
+                SongTable.KEY_GENRE,
                 SongTable.KEY_ALBUM,
                 SongTable.KEY_DURATION,
                 SongTable.KEY_IMG_URL,
@@ -44,8 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
         db.execSQL(create_song_history_table);
 
-
-        // Create songs table
+        // Create albums table
         String create_album_table = String.format(
                 "CREATE TABLE IF NOT EXISTS %s (%s TEXT PRIMARY KEY, %s TEXT)",
                 AlbumTable.TABLE_NAME,
@@ -57,15 +56,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop songs table if exists
-        String drop_songs_table = String.format("DROP TABLE IF EXISTS %s", SongTable.TABLE_NAME);
-        db.execSQL(drop_songs_table);
-
-        // Drop song history table if exists
-        String drop_song_history_table = String.format("DROP TABLE IF EXISTS %s", SongHistoryTable.TABLE_NAME);
-        db.execSQL(drop_song_history_table);
-
-        // Recreate tables
+        db.execSQL("DROP TABLE IF EXISTS " + SongTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + SongHistoryTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + AlbumTable.TABLE_NAME);
         onCreate(db);
     }
 }
