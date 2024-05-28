@@ -6,20 +6,24 @@ public class SongModel {
     private String title;
     private String artist;
     private String album;
+
+    private String genre;
+
     private long duration;
 
     private String imgUrl;
 
     private String path;
 
-    public SongModel(String id, String title, String artist, String album, long duration, String imgUrl, String path) {
-        this.id = id;
-        this.title = title;
-        this.artist = artist;
-        this.album = album;
-        this.duration = duration;
-        this.imgUrl = imgUrl;
-        this.path = path;
+    public SongModel() {
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public String getImgUrl() {
