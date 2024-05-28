@@ -24,7 +24,5 @@ public interface ISongService {
 
     void addSong(SongModel song);
 
-    void updateSong(SongModel song);
-
     void deleteSong(String songId);
 }
