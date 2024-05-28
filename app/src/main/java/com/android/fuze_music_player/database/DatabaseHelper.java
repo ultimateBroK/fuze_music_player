@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // Create songs table
         String create_songs_table = String.format(
-                "CREATE TABLE IF NOT EXISTS %s (%s TEXT PRIMARY KEY, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER, %s TEXT, %s TEXT UNIQUE)",
+                "CREATE TABLE IF NOT EXISTS %s (%s TEXT PRIMARY KEY, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER, %s TEXT)",
                 SongTable.TABLE_NAME,
                 SongTable.KEY_ID,
                 SongTable.KEY_TITLE,
@@ -26,8 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 SongTable.KEY_GENRE,
                 SongTable.KEY_ALBUM,
                 SongTable.KEY_DURATION,
-                SongTable.KEY_IMG_URL,
-                SongTable.KEY_PATH
+                SongTable.KEY_IMG_URL
         );
         db.execSQL(create_songs_table);
 

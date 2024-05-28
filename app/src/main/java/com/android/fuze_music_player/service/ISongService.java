@@ -15,11 +15,16 @@ public interface ISongService {
      */
     List<SongModel> list();
 
+    /**
+     * Import các bài hát được chọn
+     * @param context
+     * @param uris
+     */
     void importAudioFromUris(Context context, List<Uri> uris);
 
-    SongModel addSong(SongModel song);
+    void addSong(SongModel song);
 
-    SongModel updateSong(SongModel song);
+    void updateSong(SongModel song);
 
     void deleteSong(String songId);
 }

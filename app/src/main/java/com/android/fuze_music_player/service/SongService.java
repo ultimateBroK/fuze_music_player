@@ -8,7 +8,10 @@ import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.android.fuze_music_player.database.DatabaseHelper;
+import com.android.fuze_music_player.database.SongTable;
 import com.android.fuze_music_player.model.SongModel;
 
 import java.util.ArrayList;
@@ -24,7 +27,36 @@ public class SongService implements ISongService {
 
     @Override
     public List<SongModel> list() {
-        return null;
+        List<SongModel> songList = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.query(
+                "songs",
+                null,
+                null,
+                null,
+                null,
+                null,
+                "title ASC"
+        );
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                SongModel song = new SongModel();
+                song.setId(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_ID)));
+                song.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_TITLE)));
+                song.setArtist(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_ARTIST)));
+                song.setGenre(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_GENRE)));
+                song.setAlbum(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_ALBUM)));
+                song.setDuration(cursor.getLong(cursor.getColumnIndexOrThrow(SongTable.KEY_DURATION)));
+                song.setImgUrl(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_IMG_URL)));
+                song.setPath(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_PATH)));
+                songList.add(song);
+            }
+            cursor.close();
+        }
+
+        return songList;
     }
 
     @Override
@@ -74,42 +106,46 @@ public class SongService implements ISongService {
 
 
     @Override
-    public SongModel addSong(SongModel song) {
+    public void addSong(SongModel song) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         boolean isExist = this.checkSongExist(db, song);
-        if (isExist) return song;
+        if (isExist) return;
 
-        ContentValues values = new ContentValues();
-        values.put("id", song.getId());
-        values.put("title", song.getTitle());
-        values.put("artist", song.getArtist());
-        values.put("album", song.getAlbum());
-        values.put("genre", song.getGenre());
-        values.put("duration", song.getDuration());
-        values.put("imgUrl", song.getImgUrl());
-        values.put("path", song.getPath());
+        ContentValues values = getContentValues(song);
 
         try {
             long newRowId = db.replace("songs", null, values);
             if (newRowId == -1) {
                 Log.e("SongService", "Failed to add song: " + song.getTitle());
-                return null;
             } else {
-                Log.i("SongService", "Song added with ID: " + newRowId);
-                return song;
+                Log.i("SongService", "Song added with Row ID: " + newRowId);
+                Log.i("SongService", "Song added with Path: " + song.getPath());
             }
         } catch (Exception e) {
             Log.e("SongService", "Failed to add song: " + e);
-            return null;
         }
     }
 
+    @NonNull
+    private static ContentValues getContentValues(SongModel song) {
+        ContentValues values = new ContentValues();
+        values.put(SongTable.KEY_ID, song.getId());
+        values.put(SongTable.KEY_TITLE, song.getTitle());
+        values.put(SongTable.KEY_ARTIST, song.getArtist());
+        values.put(SongTable.KEY_ALBUM, song.getAlbum());
+        values.put(SongTable.KEY_GENRE, song.getGenre());
+        values.put(SongTable.KEY_DURATION, song.getDuration());
+        values.put(SongTable.KEY_IMG_URL, song.getImgUrl());
+        values.put(SongTable.KEY_PATH, song.getPath());
+        return values;
+    }
+
     private boolean checkSongExist(SQLiteDatabase db, SongModel song) {
-        String selection = "path = ?";
+        String selection = SongTable.KEY_ID + " = ?";
         String[] selectionArgs = {song.getPath()};
 
-        Cursor cursor = db.query("songs", new String[]{"id"}, selection, selectionArgs, null, null, null);
+        Cursor cursor = db.query("songs", new String[]{SongTable.KEY_ID}, selection, selectionArgs, null, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
             Log.i("SongService", "Song with path already exists: " + song.getPath());
@@ -124,8 +160,7 @@ public class SongService implements ISongService {
     }
 
     @Override
-    public SongModel updateSong(SongModel song) {
-        return null;
+    public void updateSong(SongModel song) {
     }
 
     @Override
