@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.fuze_music_player.database.DatabaseHelper;
+import com.android.fuze_music_player.service.ISongService;
 import com.android.fuze_music_player.service.SongService;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnSelectDir;
-    private SongService songService;
+    private ISongService songService;
     private DatabaseHelper databaseHelper;
     private ActivityResultLauncher<Intent> pickSongsLauncher;
 
