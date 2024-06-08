@@ -6,6 +6,10 @@ import java.util.List;
 
 public interface IAlbumService {
 
+    /**
+     * Lấy ra tất cả album
+     * @return
+     */
     List<AlbumModel> list();
 
     void createAlbum(AlbumModel albumModel);
