@@ -1,21 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:backgroundTint="@color/colorBackground"
     android:orientation="vertical"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </androidx.viewpager2.widget.ViewPager2>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Fuze Music" />
+        android:background="@color/colorBackground"
+        app:tabBackground="@color/colorTabBackground"
+        app:tabGravity="fill"
+        app:tabIconTint="@color/colorPrimary"
+        app:tabIndicator="@drawable/tab_indicator"
+        app:tabIndicatorAnimationMode="linear"
+        app:tabIndicatorColor="@color/colorTab"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorGravity="stretch"
+        app:tabMode="fixed">
 
-    <Button
-        android:id="@+id/btnSelectDir"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/for_you"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/face_24dp" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/songs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/music_note_24dp" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/albums"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/album_24dp" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/artists"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/artist_24dp" />
+    </com.google.android.material.tabs.TabLayout>
+
 </LinearLayout>
