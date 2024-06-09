@@ -18,15 +18,19 @@
 
 ### Thành viên 1: Nguyễn Đức Hiếu
 - Công việc 1: Thiết kế giao diện tab chơi nhạc và tab hàng đợi Queue
+- Công việc 2: Lập trình
 
 ### Thành viên 2: Vũ Tuấn Hoàng
 - Công việc 1: Thiết kế giao diện tab mẹ "For you" và các tab con "History", "Last Added"
+- Công việc 2: Lập trình
 
 ### Thành viên 3: Nguyễn Thành Đạt
 - Công việc 1: Thiết kế giao diện tab "Songs", "Albums", "Artists"
+- Công việc 2: Lập trình
 
 ### Thành viên 4: Vũ Ngọc Khoa
 - Công việc 1: Phụ trách backend và cơ sở dữ liệu
+- Công việc 2: Lập trình
 
 ## Vấn Đề Gặp Phải
 - 
