@@ -17,7 +17,7 @@
 - Thiết kế giao diện app
 
 ### Thành viên 1: Nguyễn Đức Hiếu
-- Công việc 1: Thiết kế giao diện tab chơi nhạc
+- Công việc 1: Thiết kế giao diện tab chơi nhạc và tab hàng đợi Queue
 
 ### Thành viên 2: Vũ Tuấn Hoàng
 - Công việc 1: Thiết kế giao diện tab mẹ "For you" và các tab con "History", "Last Added"
