@@ -10,14 +10,108 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Fuze Music"
+        android:padding="40dp"
+        android:textAlignment="center"
+        android:textColor="#A8F2CF"
+        android:textSize="24sp" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        tools:ignore="MissingConstraints">
 
-    </androidx.viewpager2.widget.ViewPager2>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
+
+            <Button
+                android:id="@+id/btnHistory"
+                android:layout_width="0dp"
+                android:layout_height="63dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="History"
+                app:icon="@drawable/history_24dp"
+                app:iconTint="#A8F2CF" />
+
+            <Button
+                android:id="@+id/btnLastAdded"
+                android:layout_width="0dp"
+                android:layout_height="63dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Last added"
+                app:icon="@drawable/library_add_24dp"
+                app:iconTint="#A8F2CF" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnShuffle"
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:gravity="center"
+            android:text="Shuffle"
+            app:icon="@drawable/shuffle_24dp"
+            app:iconTint="#A8F2CF" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_launcher_round" />
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:layout_gravity="center"
+            android:text="Song name・Artist name"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <ImageButton
+            android:id="@+id/imgbtnPlay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/play_circle_40dp" />
+
+    </LinearLayout>
+
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
