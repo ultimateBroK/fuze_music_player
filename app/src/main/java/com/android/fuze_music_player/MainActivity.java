@@ -40,27 +40,27 @@ public class MainActivity extends AppCompatActivity {
         btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myintent = new Intent(MainActivity.this, History_Screen.class);
-                startActivity(myintent);
-                Toast.makeText(MainActivity.this, "History clicked", Toast.LENGTH_SHORT).show();
+//                Intent myintent = new Intent(MainActivity.this, History_Screen.class);
+//                startActivity(myintent);
+//                Toast.makeText(MainActivity.this, "History clicked", Toast.LENGTH_SHORT).show();
             }
         });
 
         btnLastAdded.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myintent = new Intent(MainActivity.this, Last_added_Screen.class);
-                startActivity(myintent);
-                Toast.makeText(MainActivity.this, "Last added clicked", Toast.LENGTH_SHORT).show();
+//                Intent myintent = new Intent(MainActivity.this, Last_added_Screen.class);
+//                startActivity(myintent);
+//                Toast.makeText(MainActivity.this, "Last added clicked", Toast.LENGTH_SHORT).show();
             }
         });
 
         btnShuffle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myintent = new Intent(MainActivity.this, activity_music_player.class);
-                startActivity(myintent);
-                Toast.makeText(MainActivity.this, "Shuffle clicked", Toast.LENGTH_SHORT).show();
+//                Intent myintent = new Intent(MainActivity.this, activity_music_player.class);
+//                startActivity(myintent);
+//                Toast.makeText(MainActivity.this, "Shuffle clicked", Toast.LENGTH_SHORT).show();
             }
         });
 
