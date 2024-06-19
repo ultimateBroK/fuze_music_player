@@ -2,30 +2,23 @@ package com.android.fuze_music_player.model;
 
 public class AlbumModel {
 
-    private int id;
     private String name;
-    private String imgUrl;
+    private String imgUrl; // Cho phép imgUrl có thể null
     private String artist;
 
-    public AlbumModel(int id, String name, String imgUrl, String artist) {
-        this.id = id;
+    public AlbumModel(String name, String artist) {
+        this.name = name;
+        this.artist = artist;
+        this.imgUrl = null; // Giá trị mặc định hoặc xử lý trường hợp null
+    }
+
+    public AlbumModel(String name, String imgUrl, String artist) {
         this.name = name;
         this.imgUrl = imgUrl;
         this.artist = artist;
     }
 
-    public AlbumModel(String albumName, Object name) {
-    }
-
     // Getters và Setters cho các trường
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

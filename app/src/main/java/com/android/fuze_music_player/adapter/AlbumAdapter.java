@@ -36,8 +36,13 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
     public void onBindViewHolder(@NonNull AlbumViewHolder holder, int position) {
         AlbumModel album = albums.get(position);
         holder.albumName.setText(album.getName());
-        holder.artistName.setText(album.getArtist()); // Sử dụng thông tin nghệ sĩ từ AlbumModel
-        // Tương tự, bạn cũng có thể sử dụng album.getImgUrl() để tải ảnh album từ URL
+        holder.artistName.setText(album.getArtist());
+
+        // Set placeholder image
+        holder.musicImg.setImageResource(R.drawable.album_24dp);
+
+        // Set error image (if needed)
+        // holder.musicImg.setImageResource(R.drawable.error_image);
     }
 
     @Override

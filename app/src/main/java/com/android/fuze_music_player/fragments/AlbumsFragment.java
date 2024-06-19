@@ -13,14 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.fuze_music_player.R;
 import com.android.fuze_music_player.adapter.AlbumAdapter;
+import com.android.fuze_music_player.database.DatabaseHelper;
 import com.android.fuze_music_player.model.AlbumModel;
 import com.android.fuze_music_player.service.AlbumService;
-import com.android.fuze_music_player.database.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AlbumsFragment extends Fragment {
+
     private RecyclerView recyclerView;
     private AlbumAdapter albumAdapter;
     private List<AlbumModel> albumList;
@@ -31,33 +32,45 @@ public class AlbumsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_albums, container, false);
 
-        // Khởi tạo RecyclerView
+        // Initialize RecyclerView
         recyclerView = rootView.findViewById(R.id.Albums_list);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Khởi tạo danh sách album và adapter
+        // Initialize album list and adapter
         albumList = new ArrayList<>();
         albumAdapter = new AlbumAdapter(getContext(), albumList);
         recyclerView.setAdapter(albumAdapter);
 
-        // Khởi tạo AlbumService với DatabaseHelper
+        // Initialize AlbumService with DatabaseHelper
         DatabaseHelper dbHelper = new DatabaseHelper(getContext());
         albumService = new AlbumService(dbHelper);
 
-        // Load danh sách album
+        // Load albums list initially
         loadAlbums();
 
         return rootView;
     }
 
     private void loadAlbums() {
-        // Lấy danh sách album từ AlbumService
+        // Get albums list from AlbumService
         List<AlbumModel> albums = albumService.list();
 
-        // Cập nhật danh sách album trong adapter
+        // Update albums list in adapter
         albumList.clear();
         albumList.addAll(albums);
         albumAdapter.notifyDataSetChanged();
+    }
+
+    // Method to update albums list from outside this fragment
+    public void updateAlbums() {
+        // Reload albums list
+        loadAlbums();
+    }
+
+    // Example method to trigger update from another part of your app
+    private void addNewSongAndUpdateAlbums() {
+        // Perform your logic to add a new song
+        // Then update albums list
+        updateAlbums();
     }
 }

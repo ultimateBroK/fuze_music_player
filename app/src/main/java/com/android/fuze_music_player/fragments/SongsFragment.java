@@ -1,16 +1,16 @@
 package com.android.fuze_music_player.fragments;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -21,18 +21,25 @@ import com.android.fuze_music_player.R;
 import com.android.fuze_music_player.adapter.SongAdapter;
 import com.android.fuze_music_player.database.DatabaseHelper;
 import com.android.fuze_music_player.model.SongModel;
+import com.android.fuze_music_player.service.AlbumService;
+import com.android.fuze_music_player.service.ISongService;
 import com.android.fuze_music_player.service.SongService;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 public class SongsFragment extends Fragment {
-    private Button btnSelectDir;
+    private ImageButton moreButton;
     private ActivityResultLauncher<Intent> pickSongsLauncher;
 
     private RecyclerView songsRecyclerView;
     private SongAdapter songAdapter;
     private List<SongModel> songsList = new ArrayList<>();
+    private DatabaseHelper databaseHelper;
+    private ISongService songService;
+    private AlbumService albumService;
 
     public SongsFragment() {
         // Required empty public constructor
@@ -41,34 +48,79 @@ public class SongsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_songs, container, false);
+
+        // Initialize UI elements
+        moreButton = view.findViewById(R.id.more_button);
+        moreButton.setOnClickListener(v -> openFilePicker());
 
         songsRecyclerView = view.findViewById(R.id.songs_List);
         songsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        // Initialize adapter and set it to RecyclerView
         songAdapter = new SongAdapter(getContext(), songsList);
         songsRecyclerView.setAdapter(songAdapter);
 
-        // Load danh sách bài hát từ cơ sở dữ liệu (sử dụng SongService)
+        // Setup database and services
+        databaseHelper = new DatabaseHelper(getContext());
+        songService = new SongService(databaseHelper);
+        albumService = new AlbumService(databaseHelper);
+
+        // Load songs from database
         loadSongsFromDatabase();
+
+        // Setup activity result launcher
+        setupActivityResultLauncher();
 
         return view;
     }
 
-    // Phương thức để load danh sách bài hát từ cơ sở dữ liệu
+    // Method to load songs from the database
     private void loadSongsFromDatabase() {
-        // Tạo instance của DatabaseHelper (nếu chưa có)
-        DatabaseHelper dbHelper = new DatabaseHelper(requireContext());
-
-        // Tạo instance của SongService và lấy danh sách bài hát
-        SongService songService = new SongService(dbHelper);
         List<SongModel> songs = songService.list();
-
-        // Cập nhật RecyclerView với danh sách bài hát
         songsList.clear();
         songsList.addAll(songs);
         songAdapter.updateData(songsList);
     }
-}
 
+    // Method to setup activity result launcher
+    private void setupActivityResultLauncher() {
+        pickSongsLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            List<Uri> uris = new ArrayList<>();
+                            if (data.getClipData() != null) {
+                                for (int i = 0; i < data.getClipData().getItemCount(); i++) {
+                                    uris.add(data.getClipData().getItemAt(i).getUri());
+                                }
+                            } else if (data.getData() != null) {
+                                uris.add(data.getData());
+                            }
+                            songService.importAudioFromUris(getContext(), uris);
+                            loadSongsFromDatabase(); // Reload songs after import
+                            updateAlbums(); // Update albums after import
+                        }
+                    }
+                });
+    }
+
+    // Method to update albums after song import
+    private void updateAlbums() {
+        Fragment albumsFragment = getParentFragmentManager().findFragmentByTag("AlbumsFragment");
+        if (albumsFragment instanceof AlbumsFragment) {
+            ((AlbumsFragment) albumsFragment).updateAlbums();
+        }
+    }
+
+    // Method to open file picker
+    private void openFilePicker() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType("audio/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        pickSongsLauncher.launch(intent);
+    }
+}
