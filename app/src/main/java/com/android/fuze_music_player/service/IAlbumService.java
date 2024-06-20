@@ -11,15 +11,4 @@ public interface IAlbumService {
      * @return
      */
     List<AlbumModel> list();
-
-    void createAlbum(AlbumModel albumModel);
-
-    void updateAlbum(AlbumModel albumModel);
-
-    /**
-     * Delete by Album name
-     * @param name
-     */
-    void deleteAlbum(String name);
-
 }
