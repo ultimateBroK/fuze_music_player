@@ -22,17 +22,14 @@ import java.util.Set;
 public class ArtistsFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArtistAdapter artistAdapter;
-    private ArrayList<SongModel> songModels;
+    private ArrayList<SongModel> songModels = new ArrayList<>();
 
     public ArtistsFragment() {
         // Required empty public constructor
     }
 
-    public static ArtistsFragment newInstance(ArrayList<SongModel> songModels) {
-        ArtistsFragment fragment = new ArtistsFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+    public static ArtistsFragment newInstance() {
+        return new ArtistsFragment();
     }
 
     @Override
@@ -49,23 +46,19 @@ public class ArtistsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.artists_List);
         recyclerView.setHasFixedSize(true);
 
+        // Load your song data here
+        // songModels = loadSongData();
+
         // Get unique artists
         ArrayList<String> uniqueArtists = getUniqueArtists(songModels);
 
         if (uniqueArtists != null && !uniqueArtists.isEmpty()) {
             artistAdapter = new ArtistAdapter(getContext(), uniqueArtists, artist -> {
+                // Handle artist item click
             });
             recyclerView.setAdapter(artistAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-//        TextView title = getActivity().findViewById(R.id.title);
-//        title.setText("Artists");
-//        getActivity().findViewById(R.id.header_layout).setVisibility(View.VISIBLE);
     }
 
     private ArrayList<String> getUniqueArtists(ArrayList<SongModel> songs) {
