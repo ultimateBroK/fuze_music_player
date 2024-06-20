@@ -15,9 +15,11 @@
         android:theme="@style/Theme.FuzeMusicPlayer"
         tools:targetApi="31">
         <activity
-            android:name=".service.History_Screen"
+            android:name=".Last_added_Screen"
             android:exported="false" />
-        <!-- <activity -->
+        <activity
+            android:name=".service.History_Screen"
+            android:exported="false" /> <!-- <activity -->
         <!-- android:name=".Queue" -->
         <!-- android:exported="true"> -->
         <!-- <intent-filter> -->
