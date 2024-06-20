@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         btnShuffle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myintent = new Intent(MainActivity.this, activity_music_player.class);
+                Intent myintent = new Intent(MainActivity.this, music_player.class);
                 startActivity(myintent);
                 Toast.makeText(MainActivity.this, "Shuffle clicked", Toast.LENGTH_SHORT).show();
             }
