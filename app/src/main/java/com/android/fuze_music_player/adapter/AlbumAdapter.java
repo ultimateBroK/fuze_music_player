@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,12 +35,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
     public void onBindViewHolder(@NonNull AlbumViewHolder holder, int position) {
         AlbumModel album = albums.get(position);
         holder.albumName.setText(album.getName());
-        holder.artistName.setText(album.getArtist());
 
         // Set placeholder image
-        holder.musicImg.setImageResource(R.drawable.album_24dp);
 
-        // Set error image (if needed)
         // holder.musicImg.setImageResource(R.drawable.error_image);
     }
 
@@ -52,15 +48,11 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
 
     public static class AlbumViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView musicImg;
         TextView albumName;
-        TextView artistName;
 
         public AlbumViewHolder(@NonNull View itemView) {
             super(itemView);
-            musicImg = itemView.findViewById(R.id.music_img);
             albumName = itemView.findViewById(R.id.album_name);
-            artistName = itemView.findViewById(R.id.artist_name);
         }
     }
 }

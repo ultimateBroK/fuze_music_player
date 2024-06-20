@@ -16,61 +16,55 @@ import com.android.fuze_music_player.adapter.AlbumAdapter;
 import com.android.fuze_music_player.database.DatabaseHelper;
 import com.android.fuze_music_player.model.AlbumModel;
 import com.android.fuze_music_player.service.AlbumService;
+import com.android.fuze_music_player.service.IAlbumService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AlbumsFragment extends Fragment {
 
-    private RecyclerView recyclerView;
+    private RecyclerView albumsRecyclerView;
     private AlbumAdapter albumAdapter;
-    private List<AlbumModel> albumList;
-    private AlbumService albumService;
+    private List<AlbumModel> albumsList = new ArrayList<>();
+    private DatabaseHelper databaseHelper;
+    private IAlbumService albumService;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_albums, container, false);
-
-        // Initialize RecyclerView
-        recyclerView = rootView.findViewById(R.id.Albums_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        // Initialize album list and adapter
-        albumList = new ArrayList<>();
-        albumAdapter = new AlbumAdapter(getContext(), albumList);
-        recyclerView.setAdapter(albumAdapter);
-
-        // Initialize AlbumService with DatabaseHelper
-        DatabaseHelper dbHelper = new DatabaseHelper(getContext());
-        albumService = new AlbumService(dbHelper);
-
-        // Load albums list initially
-        loadAlbums();
-
-        return rootView;
+    public AlbumsFragment() {
+        // Required empty public constructor
     }
 
-    private void loadAlbums() {
-        // Get albums list from AlbumService
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_albums, container, false);
+
+        albumsRecyclerView = view.findViewById(R.id.Albums_list);
+        albumsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        databaseHelper = new DatabaseHelper(getContext());
+        albumService = new AlbumService(databaseHelper);
+
+        // Load albums from database
+        loadAlbumsFromDatabase();
+
+        return view;
+    }
+
+    public void updateAlbums() {
+        loadAlbumsFromDatabase();
+    }
+
+    private void loadAlbumsFromDatabase() {
         List<AlbumModel> albums = albumService.list();
 
-        // Update albums list in adapter
-        albumList.clear();
-        albumList.addAll(albums);
-        albumAdapter.notifyDataSetChanged();
-    }
+        albumsList.clear();
+        albumsList.addAll(albums);
 
-    // Method to update albums list from outside this fragment
-    public void updateAlbums() {
-        // Reload albums list
-        loadAlbums();
-    }
-
-    // Example method to trigger update from another part of your app
-    private void addNewSongAndUpdateAlbums() {
-        // Perform your logic to add a new song
-        // Then update albums list
-        updateAlbums();
+        if (albumAdapter == null) {
+            albumAdapter = new AlbumAdapter(getContext(), albumsList);
+            albumsRecyclerView.setAdapter(albumAdapter);
+        } else {
+            albumAdapter.notifyDataSetChanged();
+        }
     }
 }

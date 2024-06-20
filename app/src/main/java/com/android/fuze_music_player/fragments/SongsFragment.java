@@ -22,6 +22,8 @@ import com.android.fuze_music_player.adapter.SongAdapter;
 import com.android.fuze_music_player.database.DatabaseHelper;
 import com.android.fuze_music_player.model.SongModel;
 import com.android.fuze_music_player.service.AlbumService;
+import com.android.fuze_music_player.service.ArtistService;
+import com.android.fuze_music_player.service.IArtistService;
 import com.android.fuze_music_player.service.ISongService;
 import com.android.fuze_music_player.service.SongService;
 
@@ -39,7 +41,6 @@ public class SongsFragment extends Fragment {
     private List<SongModel> songsList = new ArrayList<>();
     private DatabaseHelper databaseHelper;
     private ISongService songService;
-    private AlbumService albumService;
 
     public SongsFragment() {
         // Required empty public constructor
@@ -64,7 +65,6 @@ public class SongsFragment extends Fragment {
         // Setup database and services
         databaseHelper = new DatabaseHelper(getContext());
         songService = new SongService(databaseHelper);
-        albumService = new AlbumService(databaseHelper);
 
         // Load songs from database
         loadSongsFromDatabase();
@@ -101,17 +101,23 @@ public class SongsFragment extends Fragment {
                             }
                             songService.importAudioFromUris(getContext(), uris);
                             loadSongsFromDatabase(); // Reload songs after import
-                            updateAlbums(); // Update albums after import
+                            updateAlbumsAndArtists(); // Update albums and artists after import
                         }
                     }
                 });
     }
 
-    // Method to update albums after song import
-    private void updateAlbums() {
+    // Method to update albums and artists after song import
+    private void updateAlbumsAndArtists() {
+        // Update albums and artists in their respective fragments if available
         Fragment albumsFragment = getParentFragmentManager().findFragmentByTag("AlbumsFragment");
         if (albumsFragment instanceof AlbumsFragment) {
             ((AlbumsFragment) albumsFragment).updateAlbums();
+        }
+
+        Fragment artistsFragment = getParentFragmentManager().findFragmentByTag("ArtistsFragment");
+        if (artistsFragment instanceof ArtistsFragment) {
+            ((ArtistsFragment) artistsFragment).updateArtists();
         }
     }
 
