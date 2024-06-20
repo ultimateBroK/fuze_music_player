@@ -1,7 +1,5 @@
 package com.android.fuze_music_player;
 
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,8 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.viewpager2.widget.ViewPager2;
 
+
+import com.android.fuze_music_player.adapter.ViewPagerAdapter;
+import com.android.fuze_music_player.fragment.ArtistsFragment;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 1;
@@ -26,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     TabLayout tabLayout;
     TextView textView2;
+    ViewPager2 viewPager2;
+    ViewPagerAdapter viewPagerAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +42,33 @@ public class MainActivity extends AppCompatActivity {
         imgbtnPlay = findViewById(R.id.imgbtnPlay);
         imageView = findViewById(R.id.imageView);
         tabLayout = findViewById(R.id.tab_layout);
+
+        private void initViewPager() {
+            tabLayout = findViewById(R.id.tab_layout);
+            viewPager2 = findViewById(R.id.view_pager);
+            viewPagerAdapter = new ViewPagerAdapter(this);
+            viewPager2.setAdapter(viewPagerAdapter);
+
+            new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
+                switch (position) {
+                    case 0:
+                        tab.setIcon(R.drawable.face_24dp);
+                        break;
+                    case 1:
+                        tab.setIcon(R.drawable.music_note_24dp);
+                        break;
+                    case 2:
+                        tab.setIcon(R.drawable.album_24dp);
+                        break;
+                    case 3:
+                        tab.setIcon(R.drawable.artist_24dp);
+                        break;
+                }
+            }).attach();
+
+            int initialPosition = viewPager2.getCurrentItem();
+//            updateHeader(initialPosition);
+        }
 
         btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +112,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Albums tab selected", Toast.LENGTH_SHORT).show();
                         break;
                     case 3:
-                        Toast.makeText(MainActivity.this, "Artists tab selected", Toast.LENGTH_SHORT).show();
+                        Intent myintent = new Intent(MainActivity.this, ArtistsFragment.class);
+                        startActivity(myintent);
                         break;
                 }
             }
