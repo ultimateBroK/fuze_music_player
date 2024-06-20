@@ -1,4 +1,4 @@
-package com.android.fuze_music_player.service;
+package com.android.fuze_music_player;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -25,7 +25,7 @@ public class History_Screen extends AppCompatActivity {
         imgbtnBack1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                onBackPressed();
             }
         });
     }

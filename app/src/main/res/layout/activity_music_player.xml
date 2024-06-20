@@ -6,8 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    android:orientation="vertical"
-    tools:context=".PlayerActivity">
+    android:orientation="vertical">
+
+
 
     <RelativeLayout
         android:id="@+id/layout_top_btn"
@@ -129,16 +130,13 @@
             android:background="@color/colorBackground"
             app:srcCompat="@drawable/skip_previous_24dp" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <ImageButton
             android:id="@+id/play_pause"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/gradient_background"
-            app:backgroundTint="@color/white"
-            app:srcCompat="@drawable/play_arrow_40dp"/>
+            android:layout_weight="1"
+            android:background="@color/colorBackground"
+            app:srcCompat="@drawable/play_arrow_40dp" />
 
         <ImageButton
             android:id="@+id/skip_next"
