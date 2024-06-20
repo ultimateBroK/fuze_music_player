@@ -1,9 +1,11 @@
 package com.android.fuze_music_player;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +25,8 @@ public class Last_added_Screen extends AppCompatActivity {
         imgbtnBack2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Toast.makeText(Last_added_Screen.this, "Back clicked", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }

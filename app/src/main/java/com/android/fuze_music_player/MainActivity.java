@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         tabLayout = findViewById(R.id.tab_layout);
 
+
+
         btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
