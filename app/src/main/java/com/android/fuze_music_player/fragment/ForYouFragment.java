@@ -32,13 +32,13 @@ public class ForYouFragment extends Fragment {
 
         // Set up button click listeners
         binding.lastAddedButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), LastAddedActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(getActivity(), LastAddedActivity.class);
+//            startActivity(intent);
         });
 
         binding.historyButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), HistoryActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(getActivity(), HistoryActivity.class);
+//            startActivity(intent);
         });
 
         binding.shuffleButton.setOnClickListener(v -> {
