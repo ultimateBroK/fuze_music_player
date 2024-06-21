@@ -8,7 +8,7 @@
     android:layout_gravity="end"
     android:background="@color/colorBackground"
     android:orientation="vertical"
-    tools:context=".activity.QueueActivity">
+    tools:context=".activity.LastAddedActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
 
         <!-- Nút quay lại -->
         <ImageButton
-            android:id="@+id/back_queue"
+            android:id="@+id/back_last_added"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -26,16 +26,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:contentDescription="@string/back_button_desc" />
 
-        <!-- Tiêu đề Queue -->
+        <!-- Tiêu đề Nhạc mới thêm -->
         <TextView
             android:id="@+id/textView4"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:gravity="start|center_vertical"
-            android:text="@string/queue"
+            android:text="Last Added"
             android:textColor="@color/white"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@id/back_queue"
+            app:layout_constraintStart_toEndOf="@id/back_last_added"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -43,11 +43,10 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- RecyclerView để hiển thị danh sách phát nhạc -->
+    <!-- RecyclerView để hiển thị danh sách nhạc mới thêm -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/queueRecyclerView"
+        android:id="@+id/lastAddedRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
-
 </LinearLayout>
