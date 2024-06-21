@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.android.fuze_music_player.fragments.AlbumsFragment;
-import com.android.fuze_music_player.fragments.ArtistsFragment;
 import com.android.fuze_music_player.fragments.ForYouFragment;
 import com.android.fuze_music_player.fragments.SongsFragment;
 
@@ -26,7 +25,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
             case 2:
                 return new AlbumsFragment();
             case 3:
-                return new ArtistsFragment();
+//                return new ArtistsFragment();
             default:
                 return new ForYouFragment();
         }

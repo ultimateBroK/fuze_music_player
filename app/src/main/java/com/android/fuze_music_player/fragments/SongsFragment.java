@@ -1,5 +1,7 @@
 package com.android.fuze_music_player.fragments;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,12 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,16 +20,11 @@ import com.android.fuze_music_player.R;
 import com.android.fuze_music_player.adapter.SongAdapter;
 import com.android.fuze_music_player.database.DatabaseHelper;
 import com.android.fuze_music_player.model.SongModel;
-import com.android.fuze_music_player.service.AlbumService;
-import com.android.fuze_music_player.service.ArtistService;
-import com.android.fuze_music_player.service.IArtistService;
 import com.android.fuze_music_player.service.ISongService;
 import com.android.fuze_music_player.service.SongService;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.app.Activity.RESULT_OK;
 
 public class SongsFragment extends Fragment {
     private ImageButton moreButton;
@@ -116,9 +110,9 @@ public class SongsFragment extends Fragment {
         }
 
         Fragment artistsFragment = getParentFragmentManager().findFragmentByTag("ArtistsFragment");
-        if (artistsFragment instanceof ArtistsFragment) {
-            ((ArtistsFragment) artistsFragment).updateArtists();
-        }
+//        if (artistsFragment instanceof ArtistsFragment) {
+//            ((ArtistsFragment) artistsFragment).updateArtists();
+//        }
     }
 
     // Method to open file picker
