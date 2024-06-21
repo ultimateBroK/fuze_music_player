@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:orientation="vertical"
-    tools:context=".fragments.ForYouFragment">
+    tools:context=".fragment.ForYouFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,42 +44,42 @@
         android:paddingTop="20dp"
         android:paddingBottom="20dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/historyButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="History"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textColorLink="@color/colorTab"
-            app:backgroundTint="@color/colorBackground"
-            app:cornerRadius="10dp"
-            app:icon="@drawable/history_24dp"
-            app:iconTint="@color/colorPrimary"
-            app:layout_constraintEnd_toStartOf="@+id/lastAddedButton"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/historyButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="History"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorLink="@color/colorTab"
+                app:backgroundTint="@color/colorBackground"
+                app:cornerRadius="10dp"
+                app:icon="@drawable/history_24dp"
+                app:iconTint="@color/colorPrimary"
+                app:layout_constraintEnd_toStartOf="@+id/lastAddedButton"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/lastAddedButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Last Added"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textColorLink="@color/colorTab"
-            app:backgroundTint="@color/colorBackground"
-            app:cornerRadius="10dp"
-            app:icon="@drawable/library_add_24dp"
-            app:iconTint="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/historyButton" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/lastAddedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Last Added"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorLink="@color/colorTab"
+                app:backgroundTint="@color/colorBackground"
+                app:cornerRadius="10dp"
+                app:icon="@drawable/library_add_24dp"
+                app:iconTint="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/historyButton" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/shuffleButton"
@@ -95,5 +95,13 @@
             app:icon="@drawable/shuffle_24dp"
             app:iconTint="@color/colorPrimary" />
     </LinearLayout>
+
+    <!-- Container for child fragments -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorBackground" />
 
 </LinearLayout>

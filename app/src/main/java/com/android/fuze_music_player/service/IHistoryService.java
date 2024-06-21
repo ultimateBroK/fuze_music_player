@@ -10,8 +10,4 @@ public interface IHistoryService {
     List<SongHistory> showHistory();
 
     SongHistory addToHistory(SongModel song);
-
-    void removeFromHistory(String songHistoryId);
-
-    List<SongHistory> searchHistory(String keyword);
 }
