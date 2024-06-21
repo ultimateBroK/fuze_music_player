@@ -2,9 +2,13 @@ package com.android.fuze_music_player.fragments;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +28,9 @@ import com.android.fuze_music_player.service.ISongService;
 import com.android.fuze_music_player.service.SongService;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SongsFragment extends Fragment {
     private ImageButton moreButton;
@@ -72,10 +78,36 @@ public class SongsFragment extends Fragment {
     // Method to load songs from the database
     private void loadSongsFromDatabase() {
         List<SongModel> songs = songService.list();
+        List<SongModel> songsOnDevice = getAllAudio(this.getContext());
+
+        // Use a set for faster lookup
+        Set<String> dbSongPaths = new HashSet<>();
+        for (SongModel dbSong : songs) {
+            dbSongPaths.add(dbSong.getPath());
+        }
+
+        List<SongModel> newSongsToAdd = new ArrayList<>();
+
+        // Check for new songs and add them to the database if they don't exist
+        for (SongModel song : songsOnDevice) {
+            if (!dbSongPaths.contains(song.getPath())) {
+                newSongsToAdd.add(song);
+                dbSongPaths.add(song.getPath());
+            }
+        }
+
+        // Insert new songs into the database
+        for (SongModel newSong : newSongsToAdd) {
+            songService.addSong(newSong);
+        }
+
+        // Refresh the song list
+        songs = songService.list();
         songsList.clear();
         songsList.addAll(songs);
         songAdapter.updateData(songsList);
     }
+
 
     // Method to setup activity result launcher
     private void setupActivityResultLauncher() {
@@ -123,4 +155,48 @@ public class SongsFragment extends Fragment {
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         pickSongsLauncher.launch(intent);
     }
+
+    public static ArrayList<SongModel> getAllAudio(Context context) {
+        ArrayList<SongModel> tempAudioList = new ArrayList<>();
+        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        String[] projection = {
+                MediaStore.Audio.Media.TITLE,
+                MediaStore.Audio.Media.ARTIST,
+                MediaStore.Audio.Media.ALBUM,
+                MediaStore.Audio.Media.DURATION,
+                MediaStore.Audio.Media.DATA
+        };
+        String sortOrder = MediaStore.Audio.Media.TITLE + " ASC";
+
+        try (Cursor cursor = context.getContentResolver().query(uri, projection, null, null, sortOrder)) {
+            if (cursor != null) {
+                int titleColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE);
+                int artistColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST);
+                int albumColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM);
+                int durationColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION);
+                int pathColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+
+                while (cursor.moveToNext()) {
+                    String title = cursor.getString(titleColumn);
+                    String artist = cursor.getString(artistColumn);
+                    String album = cursor.getString(albumColumn);
+                    String duration = cursor.getString(durationColumn);
+                    String path = cursor.getString(pathColumn);
+
+                    SongModel songModel = new SongModel();
+                    songModel.setTitle(title);
+                    songModel.setArtist(artist);
+                    songModel.setAlbum(album);
+                    songModel.setDuration(Long.parseLong(duration));
+                    songModel.setPath(path);
+                    tempAudioList.add(songModel);
+                }
+            }
+        } catch (Exception e) {
+            Log.e("GetAllAudio", "Error fetching audio files", e);
+        }
+
+        return tempAudioList;
+    }
+
 }

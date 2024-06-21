@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.android.fuze_music_player.fragment.ArtistsFragment;
-import com.android.fuze_music_player.fragment.ForYouFragment;
+import com.android.fuze_music_player.fragments.ArtistsFragment;
+import com.android.fuze_music_player.fragments.ForYouFragment;
 import com.android.fuze_music_player.fragments.AlbumsFragment;
 import com.android.fuze_music_player.fragments.SongsFragment;
 

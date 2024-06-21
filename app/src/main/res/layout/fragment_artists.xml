@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorBackground"
-    tools:context=".fragment.ArtistsFragment">
+    tools:context=".fragments.ArtistsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/artists_List"

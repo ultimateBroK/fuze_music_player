@@ -1,4 +1,4 @@
-package com.android.fuze_music_player.fragment;
+package com.android.fuze_music_player.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
