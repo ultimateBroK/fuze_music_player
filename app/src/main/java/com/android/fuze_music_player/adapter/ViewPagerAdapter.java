@@ -7,6 +7,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.android.fuze_music_player.fragment.ArtistsFragment;
 import com.android.fuze_music_player.fragment.ForYouFragment;
+import com.android.fuze_music_player.fragments.AlbumsFragment;
+import com.android.fuze_music_player.fragments.SongsFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
 
@@ -18,12 +20,10 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         switch (position) {
-            case 0:
-                return new ForYouFragment();
             case 1:
-                return new ForYouFragment();
+                return new SongsFragment();
             case 2:
-                return new ForYouFragment();
+                return new AlbumsFragment();
             case 3:
                 return new ArtistsFragment();
             default:
