@@ -32,6 +32,8 @@ public class AlbumService implements IAlbumService {
                 do {
                     int index = cursor.getColumnIndex("album");
                     String albumName = cursor.getString(index);
+
+
                     albums.add(new AlbumModel(albumName, null));
                 } while (cursor.moveToNext());
             }
