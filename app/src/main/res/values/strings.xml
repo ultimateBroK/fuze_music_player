@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Fuze Music Player</string>
+    <string name="fragment_for_you">For You fragment</string>
+    <string name="fragment_songs">For You fragment</string>
+    <string name="fragment_albums">For You fragment</string>
+    <string name="fragment_artists">For You fragment</string>
 </resources>
