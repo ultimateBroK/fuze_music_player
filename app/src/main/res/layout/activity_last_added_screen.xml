@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".History_Screen">
+    tools:context=".Last_added_Screen">
 
 
     <LinearLayout
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/imgbtnBack1"
+            android:id="@+id/imgbtnBack2"
             android:layout_width="67dp"
             android:layout_height="56dp"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -33,18 +33,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             android:layout_weight="5"
-            android:text="History"
+            android:text="Last added"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/HistoryRecyclerView"
+        android:id="@+id/LastAddedRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="56dp"
         android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout3"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
