@@ -9,21 +9,22 @@
     tools:context=".activity.PlayerActivity">
 
     <!-- Layout chứa các nút trên cùng -->
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/layout_top_btn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentTop="true">
+        android:orientation="horizontal"
+        android:gravity="start">
 
         <!-- Nút quay lại -->
         <ImageButton
             android:id="@+id/back_btn"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:background="@color/colorBackground"
             app:srcCompat="@drawable/arrow_back_24dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/back_button_desc" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <!-- Layout chứa hình ảnh bài hát -->
     <RelativeLayout
