@@ -27,8 +27,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.QueueActivity"/>
-<!--        <activity android:name=".activity.HistoryActivity" />-->
-<!--        <activity android:name=".activity.LastAddedActivity" />-->
+        <activity android:name=".activity.HistoryActivity" />
+        <activity android:name=".activity.LastAddedActivity" />
         <activity android:name=".activity.AlbumDetailActivity"/>
         <activity android:name=".activity.ArtistDetailActivity"/>
     </application>
