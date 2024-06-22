@@ -15,8 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.android.fuze_music_player.R;
-//import com.android.fuze_music_player.activity.HistoryActivity;
-//import com.android.fuze_music_player.activity.LastAddedActivity;
+import com.android.fuze_music_player.activity.HistoryActivity;
+import com.android.fuze_music_player.activity.LastAddedActivity;
 import com.android.fuze_music_player.activity.PlayerActivity;
 import com.android.fuze_music_player.databinding.FragmentForYouBinding;
 import com.android.fuze_music_player.model.SongModel;
@@ -41,16 +41,16 @@ public class ForYouFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        // Thiết lập click listener cho các nút
-//        binding.lastAddedButton.setOnClickListener(v -> {
-//            Intent intent = new Intent(getActivity(), LastAddedActivity.class);
-//            startActivity(intent);
-//        });
-//
-//        binding.historyButton.setOnClickListener(v -> {
-//            Intent intent = new Intent(getActivity(), HistoryActivity.class);
-//            startActivity(intent);
-//        });
+        // Thiết lập click listener cho các nút
+        binding.lastAddedButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), LastAddedActivity.class);
+            startActivity(intent);
+        });
+
+        binding.historyButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), HistoryActivity.class);
+            startActivity(intent);
+        });
 
         binding.shuffleButton.setOnClickListener(v -> {
             playShuffledMusic();
