@@ -353,7 +353,7 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         retriever.setDataSource(PlayerActivity.uri.toString());
 
-        int durationTotal = Integer.parseInt(listSongs.get(position).getDuration()) / 1000;
+        int durationTotal = (int) (listSongs.get(position).getDuration() / 1000);
         duration_total.setText(formattedTime(durationTotal));
 
         byte[] art = retriever.getEmbeddedPicture();

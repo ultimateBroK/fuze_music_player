@@ -1,44 +1,35 @@
 package com.android.fuze_music_player.model;
 
-public class SongModel {
+import java.io.Serializable;
 
-    private String id;
+public class SongModel implements Serializable {
+    private long id;
     private String title;
     private String artist;
     private String album;
-
-    private String genre;
-
     private long duration;
-
-    private String imgUrl;
-
     private String path;
 
+    // Constructor có tham số để khởi tạo đối tượng SongModel
+    public SongModel(long id, String title, String artist, String album, long duration, String path) {
+        this.id = id;
+        this.title = title;
+        this.artist = artist;
+        this.album = album;
+        this.duration = duration;
+        this.path = path;
+    }
+
+    // Constructor không tham số
     public SongModel() {
     }
 
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public String getId() {
+    // Getter và Setter cho các thuộc tính của SongModel
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

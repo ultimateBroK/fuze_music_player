@@ -48,13 +48,11 @@ public class SongHistoryService implements IHistoryService {
                 songHistory.setId(cursor.getLong(cursor.getColumnIndexOrThrow(SongHistoryTable.KEY_ID)));
                 songHistory.setLastPlayedAt(new Date(cursor.getLong(cursor.getColumnIndexOrThrow(SongHistoryTable.KEY_LAST_PLAYED_AT))));
                 SongModel song = new SongModel();
-                song.setId(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_ID)));
+                song.setId(cursor.getLong(cursor.getColumnIndexOrThrow(SongTable.KEY_ID)));
                 song.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_TITLE)));
                 song.setArtist(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_ARTIST)));
                 song.setAlbum(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_ALBUM)));
-                song.setGenre(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_GENRE)));
                 song.setDuration(cursor.getLong(cursor.getColumnIndexOrThrow(SongTable.KEY_DURATION)));
-                song.setImgUrl(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_IMG_URL)));
 
                 songHistory.setSong(song);
 

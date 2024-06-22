@@ -44,13 +44,11 @@ public class SongService implements ISongService {
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 SongModel song = new SongModel();
-                song.setId(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_ID)));
+                song.setId(cursor.getLong(cursor.getColumnIndexOrThrow(SongTable.KEY_ID)));
                 song.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_TITLE)));
                 song.setArtist(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_ARTIST)));
-                song.setGenre(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_GENRE)));
                 song.setAlbum(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_ALBUM)));
                 song.setDuration(cursor.getLong(cursor.getColumnIndexOrThrow(SongTable.KEY_DURATION)));
-                song.setImgUrl(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_IMG_URL)));
                 song.setPath(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_PATH)));
                 songList.add(song);
             }
@@ -91,7 +89,6 @@ public class SongService implements ISongService {
                 song.setArtist(artist != null ? artist : "Unknown Artist");
                 song.setAlbum(album != null ? album : "Unknown Album");
                 song.setDuration(duration != null ? Long.parseLong(duration) : 0);
-                song.setGenre(genre != null ? genre : "Unknown Genre");
                 song.setPath(uri.getPath());
 
                 songList.add(song);
@@ -135,9 +132,7 @@ public class SongService implements ISongService {
         values.put(SongTable.KEY_TITLE, song.getTitle());
         values.put(SongTable.KEY_ARTIST, song.getArtist());
         values.put(SongTable.KEY_ALBUM, song.getAlbum());
-        values.put(SongTable.KEY_GENRE, song.getGenre());
         values.put(SongTable.KEY_DURATION, song.getDuration());
-        values.put(SongTable.KEY_IMG_URL, song.getImgUrl());
         values.put(SongTable.KEY_PATH, song.getPath());
         return values;
     }

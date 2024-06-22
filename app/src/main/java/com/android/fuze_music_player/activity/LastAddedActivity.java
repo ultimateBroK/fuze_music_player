@@ -90,7 +90,13 @@ public class LastAddedActivity extends AppCompatActivity {
                     String duration = cursor.getString(durationIndex);
                     String path = cursor.getString(dataIndex);
 
-                    SongModel song = new SongModel(id, title, artist, album, duration, path);
+                    SongModel song = new SongModel();
+                    song.setId(id);
+                    song.setTitle(title);
+                    song.setArtist(artist);
+                    song.setAlbum(album);
+                    song.setDuration(Long.parseLong(duration));
+                    song.setPath(path);
                     lastAddedList.add(song);
                 }
             } while (cursor.moveToNext());

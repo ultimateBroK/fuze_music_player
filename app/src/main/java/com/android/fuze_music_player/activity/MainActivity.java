@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                     String duration = cursor.getString(durationColumn);
                     String path = cursor.getString(pathColumn);
 
-                    SongModel songModel = new SongModel(id, title, artist, album, duration, path);
+                    SongModel songModel = new SongModel(id, title, artist, album, Long.parseLong(duration), path);
                     tempAudioList.add(songModel);
                 }
             }
