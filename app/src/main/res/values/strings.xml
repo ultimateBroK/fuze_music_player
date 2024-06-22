@@ -1,7 +1,7 @@
 <resources>
     <string name="album_art_desc">Album art</string>
     <string name="album_name">Album Name</string>
-    <string name="app_name">Fuze Music Player</string>
+    <string name="app_name">Fuze Music</string>
     <string name="artist_name">Artist Name</string>
     <string name="back_button_desc">Back button</string>
     <string name="fragment_albums">Albums fragment</string>
