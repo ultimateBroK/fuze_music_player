@@ -1,68 +1,134 @@
 package com.android.fuze_music_player.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.fuze_music_player.R;
+import com.android.fuze_music_player.activity.AlbumDetailActivity;
 import com.android.fuze_music_player.adapter.AlbumAdapter;
-import com.android.fuze_music_player.database.DatabaseHelper;
-import com.android.fuze_music_player.model.AlbumModel;
-import com.android.fuze_music_player.service.AlbumService;
-import com.android.fuze_music_player.service.IAlbumService;
+import com.android.fuze_music_player.databinding.FragmentAlbumsBinding;
+import com.android.fuze_music_player.model.SongModel;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AlbumsFragment extends Fragment {
 
-    private RecyclerView albumsRecyclerView;
+    private FragmentAlbumsBinding binding;
     private AlbumAdapter albumAdapter;
-    private List<AlbumModel> albumsList = new ArrayList<>();
-    private DatabaseHelper databaseHelper;
-    private IAlbumService albumService;
+    private ArrayList<SongModel> songModels;
 
-    public AlbumsFragment() {
-        // Required empty public constructor
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Nhận dữ liệu songModels từ arguments nếu có
+        if (getArguments() != null) {
+            songModels = (ArrayList<SongModel>) getArguments().getSerializable("songs"); // Sử dụng Serializable
+        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_albums, container, false);
-
-        albumsRecyclerView = view.findViewById(R.id.albums_List);
-        albumsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        databaseHelper = new DatabaseHelper(getContext());
-        albumService = new AlbumService(databaseHelper);
-
-        // Load albums from database
-        loadAlbumsFromDatabase();
-
-        return view;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate layout và binding cho fragment
+        binding = FragmentAlbumsBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
-    public void updateAlbums() {
-        loadAlbumsFromDatabase();
-    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-    private void loadAlbumsFromDatabase() {
-        List<AlbumModel> albums = albumService.list();
+        // Thiết lập RecyclerView
+        binding.albumsList.setHasFixedSize(true);
+        binding.albumsList.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        albumsList.clear();
-        albumsList.addAll(albums);
+        // Loại bỏ các album trùng lặp và sắp xếp danh sách album theo thứ tự chữ cái
+        ArrayList<AlbumAdapter.Album> uniqueAlbumModels = getUniqueAlbums(songModels);
+        Collections.sort(uniqueAlbumModels, Comparator.comparing(AlbumAdapter.Album::getName));
 
-        if (albumAdapter == null) {
-            albumAdapter = new AlbumAdapter(getContext(), albumsList);
-            albumsRecyclerView.setAdapter(albumAdapter);
-        } else {
-            albumAdapter.notifyDataSetChanged();
+        if (uniqueAlbumModels != null && !uniqueAlbumModels.isEmpty()) {
+            albumAdapter = new AlbumAdapter(getContext(), uniqueAlbumModels, album -> {
+                // Mở Activity chi tiết album khi một album được chọn
+                Intent intent = new Intent(getActivity(), AlbumDetailActivity.class);
+                intent.putExtra("album", album.getName());
+                startActivity(intent);
+            });
+            binding.albumsList.setAdapter(albumAdapter);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Cập nhật tiêu đề của tiêu đề chính
+        TextView title = getActivity().findViewById(R.id.title);
+        title.setText("Albums");
+
+        // Hiển thị tiêu đề
+        getActivity().findViewById(R.id.header_layout).setVisibility(View.VISIBLE);
+    }
+
+    // Hàm lấy danh sách các album độc nhất từ danh sách các bài hát
+    private ArrayList<AlbumAdapter.Album> getUniqueAlbums(ArrayList<SongModel> songs) {
+        Map<String, Map<String, Integer>> albumArtistCountMap = new HashMap<>();
+        Map<String, String> albumArtPathMap = new HashMap<>();
+
+        for (SongModel song : songs) {
+            String albumName = song.getAlbum();
+            String artistName = song.getArtist();
+            String songPath = song.getPath();
+
+            albumArtPathMap.put(albumName, songPath);
+
+            Map<String, Integer> artistCountMap = albumArtistCountMap.getOrDefault(albumName, new HashMap<>());
+            artistCountMap.put(artistName, artistCountMap.getOrDefault(artistName, 0) + 1);
+            albumArtistCountMap.put(albumName, artistCountMap);
+        }
+
+        ArrayList<AlbumAdapter.Album> uniqueAlbums = new ArrayList<>();
+        for (Map.Entry<String, Map<String, Integer>> entry : albumArtistCountMap.entrySet()) {
+            String albumName = entry.getKey();
+            Map<String, Integer> artistCountMap = entry.getValue();
+
+            String dominantArtist = getDominantArtist(artistCountMap);
+            String albumArtPath = albumArtPathMap.get(albumName);
+
+            uniqueAlbums.add(new AlbumAdapter.Album(albumName, dominantArtist, albumArtPath));
+        }
+
+        return uniqueAlbums;
+    }
+
+    // Hàm lấy nghệ sĩ chính trong một album
+    private String getDominantArtist(Map<String, Integer> artistCountMap) {
+        return artistCountMap.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse("Various Artists");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        // Ẩn tiêu đề khi fragment không còn hiển thị
+        getActivity().findViewById(R.id.header_layout).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

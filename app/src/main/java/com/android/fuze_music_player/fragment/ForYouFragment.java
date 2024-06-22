@@ -41,7 +41,7 @@ public class ForYouFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Thiết lập click listener cho các nút
+//        // Thiết lập click listener cho các nút
 //        binding.lastAddedButton.setOnClickListener(v -> {
 //            Intent intent = new Intent(getActivity(), LastAddedActivity.class);
 //            startActivity(intent);
