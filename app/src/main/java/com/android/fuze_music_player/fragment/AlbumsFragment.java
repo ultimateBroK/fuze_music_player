@@ -107,7 +107,6 @@ public class AlbumsFragment extends Fragment {
 
             uniqueAlbums.add(new AlbumAdapter.Album(albumName, dominantArtist, albumArtPath));
         }
-
         return uniqueAlbums;
     }
 
