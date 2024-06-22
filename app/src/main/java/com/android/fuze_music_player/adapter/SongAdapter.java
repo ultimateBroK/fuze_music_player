@@ -27,7 +27,7 @@
         @NonNull
         @Override
         public SongViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(context).inflate(R.layout.music_items, parent, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.item_music, parent, false);
             return new SongViewHolder(view);
         }
 
