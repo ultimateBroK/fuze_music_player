@@ -36,7 +36,7 @@ public class AlbumsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_albums, container, false);
 
-        albumsRecyclerView = view.findViewById(R.id.Albums_list);
+        albumsRecyclerView = view.findViewById(R.id.albums_List);
         albumsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         databaseHelper = new DatabaseHelper(getContext());

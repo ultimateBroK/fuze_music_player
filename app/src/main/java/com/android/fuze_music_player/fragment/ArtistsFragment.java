@@ -1,9 +1,11 @@
 package com.android.fuze_music_player.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,35 +14,32 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.fuze_music_player.R;
+import com.android.fuze_music_player.activity.ArtistDetailActivity;
 import com.android.fuze_music_player.adapter.ArtistAdapter;
-import com.android.fuze_music_player.database.DatabaseHelper;
 import com.android.fuze_music_player.model.SongModel;
-import com.android.fuze_music_player.service.ISongService;
-import com.android.fuze_music_player.service.SongService;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ArtistsFragment extends Fragment {
+
     private RecyclerView recyclerView;
     private ArtistAdapter artistAdapter;
-    private List<SongModel> songModels = new ArrayList<>();
+    private ArrayList<SongModel> songModels;
 
-    private DatabaseHelper databaseHelper;
-
-    private ISongService songService;
-
-    public ArtistsFragment() {
-
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Nhận dữ liệu songModels từ arguments nếu có
+        if (getArguments() != null) {
+            songModels = (ArrayList<SongModel>) getArguments().getSerializable("songs"); // Sử dụng Serializable
+        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        databaseHelper = new DatabaseHelper(getContext());
-        songService = new SongService(databaseHelper);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate layout cho fragment
         return inflater.inflate(R.layout.fragment_artists, container, false);
     }
 
@@ -51,32 +50,36 @@ public class ArtistsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.artists_List);
         recyclerView.setHasFixedSize(true);
 
-        // Load your song data here
-        songModels = loadSongData();
-
-        // Get unique artists
+        // Lấy danh sách các nghệ sĩ độc nhất
         ArrayList<String> uniqueArtists = getUniqueArtists(songModels);
 
-        if (!uniqueArtists.isEmpty()) {
+        if (uniqueArtists != null && !uniqueArtists.isEmpty()) {
             artistAdapter = new ArtistAdapter(getContext(), uniqueArtists, artist -> {
-                // Handle artist item click
+                // Mở Activity chi tiết nghệ sĩ khi một nghệ sĩ được chọn
+                Intent intent = new Intent(getActivity(), ArtistDetailActivity.class);
+                intent.putExtra("artist", artist);
+                startActivity(intent);
             });
             recyclerView.setAdapter(artistAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Cập nhật tiêu đề của tiêu đề chính
+        TextView title = getActivity().findViewById(R.id.title);
+        title.setText("Artists");
+        getActivity().findViewById(R.id.header_layout).setVisibility(View.VISIBLE);
+    }
 
-    private ArrayList<String> getUniqueArtists(List<SongModel> songs) {
+    // Hàm lấy danh sách các nghệ sĩ độc nhất từ danh sách các bài hát
+    private ArrayList<String> getUniqueArtists(ArrayList<SongModel> songs) {
         Set<String> artistSet = new HashSet<>();
         for (SongModel song : songs) {
             artistSet.add(song.getArtist());
         }
         return new ArrayList<>(artistSet);
-    }
-
-
-    private List<SongModel> loadSongData() {
-        return songService.list();
     }
 }
