@@ -649,6 +649,12 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
         sendBroadcast(intent);
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(0, R.anim.slide_down_out); // Không có hoạt ảnh vào, chỉ có hoạt ảnh ra
+    }
+
     // GestureListener để xử lý các thao tác vuốt
     private class GestureListener extends GestureDetector.SimpleOnGestureListener {
         private static final int SWIPE_THRESHOLD = 100;

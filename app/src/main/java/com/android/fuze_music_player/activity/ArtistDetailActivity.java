@@ -99,5 +99,6 @@ public class ArtistDetailActivity extends AppCompatActivity implements SongAdapt
         intent.putExtra("songs", artistSongs); // Sử dụng Serializable thay vì Parcelable
         intent.putExtra("source", "ArtistDetailActivity");
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_up_in, R.anim.no_animation); // Thêm hoạt ảnh
     }
 }

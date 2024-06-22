@@ -65,6 +65,7 @@ public class AlbumDetailActivity extends AppCompatActivity {
                 intent.putExtra("songs", albumSongs); // Sử dụng Serializable thay vì Parcelable
                 intent.putExtra("position", position);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_up_in, R.anim.no_animation); // Thêm hoạt ảnh
             });
             binding.songsList.setAdapter(songAdapter);
             binding.songsList.setLayoutManager(new LinearLayoutManager(this));
