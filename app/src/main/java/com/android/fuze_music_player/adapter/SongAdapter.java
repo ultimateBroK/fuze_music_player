@@ -1,65 +1,136 @@
-    package com.android.fuze_music_player.adapter;
+package com.android.fuze_music_player.adapter;
 
-    import android.content.Context;
-    import android.view.LayoutInflater;
-    import android.view.View;
-    import android.view.ViewGroup;
-    import android.widget.TextView;
+import android.content.Context;
+import android.media.MediaMetadataRetriever;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
-    import androidx.annotation.NonNull;
-    import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
-    import com.android.fuze_music_player.R;
-    import com.android.fuze_music_player.model.SongModel;
+import com.bumptech.glide.Glide;
+import com.android.fuze_music_player.R;
+import com.android.fuze_music_player.databinding.ItemMusicBinding;
+import com.android.fuze_music_player.model.SongModel;
 
-    import java.util.List;
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
-    public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder> {
+public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> {
+    // Tham chiếu yếu đến đối tượng Context để tránh rò rỉ bộ nhớ
+    private final WeakReference<Context> mContext;
+    // Danh sách các bài hát
+    private final ArrayList<SongModel> mSongs;
+    // Trình nghe sự kiện khi người dùng nhấp vào một mục
+    private final OnItemClickListener mListener;
 
-        private Context context;
-        private List<SongModel> songs;
+    // Hàm khởi tạo
+    public SongAdapter(Context context, ArrayList<SongModel> songs, OnItemClickListener listener) {
+        this.mSongs = songs;
+        this.mContext = new WeakReference<>(context);
+        this.mListener = listener;
+    }
 
-        public SongAdapter(Context context, List<SongModel> songs) {
-            this.context = context;
-            this.songs = songs;
-        }
+    // Phương thức tạo một ViewHolder mới
+    @NonNull
+    @Override
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        ItemMusicBinding binding = ItemMusicBinding.inflate(inflater, parent, false);
+        return new MyViewHolder(binding, mListener);
+    }
 
-        @NonNull
-        @Override
-        public SongViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_music, parent, false);
-            return new SongViewHolder(view);
-        }
+    // Phương thức cập nhật dữ liệu cho một ViewHolder
+    @Override
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        SongModel song = mSongs.get(position);
+        holder.binding.songName.setText(song.getTitle());
+        holder.binding.artistName.setText(song.getArtist());
+        new LoadAlbumArtTask(holder.binding.musicImg, mContext.get()).execute(song.getPath());
+    }
 
-        @Override
-        public void onBindViewHolder(@NonNull SongViewHolder holder, int position) {
-            SongModel song = songs.get(position);
-            holder.songName.setText(song.getTitle());
-            holder.artistName.setText(song.getArtist());
+    // Phương thức trả về số lượng bài hát
+    @Override
+    public int getItemCount() {
+        return mSongs.size();
+    }
 
-            // Load ảnh sử dụng Glide hoặc Picasso nếu có URL ảnh
-            // Glide.with(context).load(song.getImgUrl()).into(holder.musicImg);
-        }
+    // Phương thức được gọi khi một ViewHolder được tái sử dụng
+    @Override
+    public void onViewRecycled(@NonNull MyViewHolder holder) {
+        super.onViewRecycled(holder);
+        Glide.with(holder.itemView.getContext()).clear(holder.binding.musicImg);
+    }
 
-        @Override
-        public int getItemCount() {
-            return songs.size();
-        }
+    // Interface định nghĩa sự kiện khi người dùng nhấp vào một mục
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
 
-        public void updateData(List<SongModel> songs) {
-            this.songs = songs;
-            notifyDataSetChanged();
-        }
+    // Lớp ViewHolder chứa các view của mỗi mục trong danh sách
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        private final ItemMusicBinding binding;
 
-        public static class SongViewHolder extends RecyclerView.ViewHolder {
-            TextView songName;
-            TextView artistName;
-
-            public SongViewHolder(@NonNull View itemView) {
-                super(itemView);
-                songName = itemView.findViewById(R.id.song_name);
-                artistName = itemView.findViewById(R.id.artist_name);
-            }
+        public MyViewHolder(@NonNull ItemMusicBinding binding, OnItemClickListener listener) {
+            super(binding.getRoot());
+            this.binding = binding;
+            // Thêm listener vào view của mỗi mục
+            itemView.setOnClickListener(v -> {
+                if (listener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(position);
+                    }
+                }
+            });
         }
     }
 
+    // Lớp AsyncTask để tải ảnh bìa album bất đồng bộ
+    private static class LoadAlbumArtTask extends AsyncTask<String, Void, byte[]> {
+        private final WeakReference<ImageView> imageViewReference;
+        private final WeakReference<Context> contextReference;
+
+        public LoadAlbumArtTask(ImageView imageView, Context context) {
+            this.imageViewReference = new WeakReference<>(imageView);
+            this.contextReference = new WeakReference<>(context);
+        }
+
+        // Tải ảnh bìa album từ đường dẫn bài hát
+        @Override
+        protected byte[] doInBackground(String... params) {
+            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+            try {
+                retriever.setDataSource(params[0]);
+                return retriever.getEmbeddedPicture();
+            } catch (Exception e) {
+                Log.e("MusicAdapter", "Error retrieving album art for URI: " + params[0], e);
+                return null;
+            } finally {
+                try {
+                    retriever.release();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+        // Cập nhật ảnh bìa album vào ImageView
+        @Override
+        protected void onPostExecute(byte[] result) {
+            ImageView imageView = imageViewReference.get();
+            Context context = contextReference.get();
+            if (imageView != null && context != null) {
+                if (result != null) {
+                    Glide.with(context).asBitmap().load(result).into(imageView);
+                } else {
+                    Glide.with(context).load(R.drawable.music_note).into(imageView);
+                }
+            }
+        }
+    }
+}
