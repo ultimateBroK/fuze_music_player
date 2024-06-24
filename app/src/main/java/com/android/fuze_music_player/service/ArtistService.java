@@ -1,47 +1,25 @@
 package com.android.fuze_music_player.service;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
-import com.android.fuze_music_player.database.DatabaseHelper;
-import com.android.fuze_music_player.database.SongTable;
-import com.android.fuze_music_player.model.ArtistModel;
+import com.android.fuze_music_player.model.SongModel;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
-public class ArtistService implements IArtistService {
+public class ArtistService {
 
-    DatabaseHelper dbHelper;
-
-    public ArtistService(DatabaseHelper dbHelper) {
-        this.dbHelper = dbHelper;
+    public ArtistService() {
     }
 
-    @Override
-    public List<ArtistModel> list() {
-        List<ArtistModel> artists = new ArrayList<>();
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = null;
-
-        try {
-            String query = "SELECT artist FROM " + SongTable.TABLE_NAME + " GROUP BY artist";
-            cursor = db.rawQuery(query, null);
-
-            if (cursor != null && cursor.moveToFirst()) {
-                do {
-                    int index = cursor.getColumnIndex("artist");
-                    String name = cursor.getString(index);
-                    artists.add(new ArtistModel(name));
-                } while (cursor.moveToNext());
-            }
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
+    // Hàm lấy danh sách các nghệ sĩ độc nhất từ danh sách các bài hát và sắp xếp theo bảng chữ cái
+    public static ArrayList<String> getUniqueArtists(ArrayList<SongModel> songs) {
+        Set<String> artistSet = new HashSet<>();
+        for (SongModel song : songs) {
+            artistSet.add(song.getArtist());
         }
-
-        return artists;
+        ArrayList<String> uniqueArtists = new ArrayList<>(artistSet);
+        Collections.sort(uniqueArtists); // Sắp xếp theo thứ tự bảng chữ cái
+        return uniqueArtists;
     }
 }

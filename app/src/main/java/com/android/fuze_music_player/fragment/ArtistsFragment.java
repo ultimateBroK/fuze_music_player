@@ -17,12 +17,9 @@ import com.android.fuze_music_player.R;
 import com.android.fuze_music_player.activity.ArtistDetailActivity;
 import com.android.fuze_music_player.adapter.ArtistAdapter;
 import com.android.fuze_music_player.model.SongModel;
+import com.android.fuze_music_player.service.ArtistService;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
 
 public class ArtistsFragment extends Fragment {
 
@@ -53,10 +50,10 @@ public class ArtistsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         // Lấy danh sách các nghệ sĩ độc nhất và sắp xếp theo bảng chữ cái
-        ArrayList<String> uniqueArtists = getUniqueArtists(songModels);
-        Collections.sort(uniqueArtists, String::compareTo);
+        ArrayList<String> uniqueArtists = ArtistService.getUniqueArtists(songModels);
+        uniqueArtists.sort(String::compareTo);
 
-        if (uniqueArtists != null && !uniqueArtists.isEmpty()) {
+        if (!uniqueArtists.isEmpty()) {
             artistAdapter = new ArtistAdapter(getContext(), uniqueArtists, artist -> {
                 // Mở Activity chi tiết nghệ sĩ khi một nghệ sĩ được chọn
                 Intent intent = new Intent(getActivity(), ArtistDetailActivity.class);
@@ -75,16 +72,5 @@ public class ArtistsFragment extends Fragment {
         TextView title = getActivity().findViewById(R.id.title);
         title.setText("Artists");
         getActivity().findViewById(R.id.header_layout).setVisibility(View.VISIBLE);
-    }
-
-    // Hàm lấy danh sách các nghệ sĩ độc nhất từ danh sách các bài hát và sắp xếp theo bảng chữ cái
-    private ArrayList<String> getUniqueArtists(ArrayList<SongModel> songs) {
-        Set<String> artistSet = new HashSet<>();
-        for (SongModel song : songs) {
-            artistSet.add(song.getArtist());
-        }
-        ArrayList<String> uniqueArtists = new ArrayList<>(artistSet);
-        Collections.sort(uniqueArtists); // Sắp xếp theo thứ tự bảng chữ cái
-        return uniqueArtists;
     }
 }
