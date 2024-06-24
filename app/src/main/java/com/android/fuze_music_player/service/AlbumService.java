@@ -1,49 +1,51 @@
 package com.android.fuze_music_player.service;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
-import com.android.fuze_music_player.database.DatabaseHelper;
-import com.android.fuze_music_player.database.SongTable;
-import com.android.fuze_music_player.model.AlbumModel;
+import com.android.fuze_music_player.adapter.AlbumAdapter;
+import com.android.fuze_music_player.model.SongModel;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-public class AlbumService implements IAlbumService {
-
-    DatabaseHelper dbHelper;
-
-    public AlbumService(DatabaseHelper dbHelper) {
-        this.dbHelper = dbHelper;
+public class AlbumService {
+    public AlbumService() {
     }
 
-    @Override
-    public List<AlbumModel> list() {
-        List<AlbumModel> albums = new ArrayList<>();
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = null;
+    // Hàm lấy danh sách các album duy nhất từ danh sách các bài hát
+    public static ArrayList<AlbumAdapter.Album> getUniqueAlbums(ArrayList<SongModel> songs) {
+        Map<String, Map<String, Integer>> albumArtistCountMap = new HashMap<>();
+        Map<String, String> albumArtPathMap = new HashMap<>();
 
-        try {
-            String query = "SELECT album FROM " + SongTable.TABLE_NAME + " GROUP BY album";
-            cursor = db.rawQuery(query, null);
+        for (SongModel song : songs) {
+            String albumName = song.getAlbum();
+            String artistName = song.getArtist();
+            String songPath = song.getPath();
 
-            if (cursor != null && cursor.moveToFirst()) {
-                do {
-                    int index = cursor.getColumnIndex("album");
-                    String albumName = cursor.getString(index);
+            albumArtPathMap.put(albumName, songPath);
 
-
-                    albums.add(new AlbumModel(albumName, null));
-                } while (cursor.moveToNext());
-            }
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
+            Map<String, Integer> artistCountMap = albumArtistCountMap.getOrDefault(albumName, new HashMap<>());
+            artistCountMap.put(artistName, artistCountMap.getOrDefault(artistName, 0) + 1);
+            albumArtistCountMap.put(albumName, artistCountMap);
         }
 
-        return albums;
+        ArrayList<AlbumAdapter.Album> uniqueAlbums = new ArrayList<>();
+        for (Map.Entry<String, Map<String, Integer>> entry : albumArtistCountMap.entrySet()) {
+            String albumName = entry.getKey();
+            Map<String, Integer> artistCountMap = entry.getValue();
+
+            String dominantArtist = getDominantArtist(artistCountMap);
+            String albumArtPath = albumArtPathMap.get(albumName);
+
+            uniqueAlbums.add(new AlbumAdapter.Album(albumName, dominantArtist, albumArtPath));
+        }
+        return uniqueAlbums;
+    }
+
+    // Hàm lấy nghệ sĩ chính trong một album
+    public static String getDominantArtist(Map<String, Integer> artistCountMap) {
+        return artistCountMap.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse("Various Artists");
     }
 }
