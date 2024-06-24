@@ -1,193 +1,120 @@
 package com.android.fuze_music_player.service;
 
-import android.content.ContentValues;
+import static android.content.Context.MODE_PRIVATE;
+
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
-import com.android.fuze_music_player.database.DatabaseHelper;
-import com.android.fuze_music_player.database.SongHistoryTable;
-import com.android.fuze_music_player.database.SongTable;
 import com.android.fuze_music_player.model.SongModel;
+import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class SongService implements ISongService {
+public class SongService {
 
-    DatabaseHelper dbHelper;
+    public static final int REQUEST_CODE = 1;
 
-    public SongService(DatabaseHelper dbHelper) {
-        this.dbHelper = dbHelper;
+    public SongService() {
     }
 
-    @Override
-    public List<SongModel> list() {
-        List<SongModel> songList = new ArrayList<>();
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+    public static ArrayList<SongModel> getAllSongs(Context context) {
+        ArrayList<SongModel> songModels = new ArrayList<>();
+        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        String[] projection = {
+                MediaStore.Audio.Media._ID,
+                MediaStore.Audio.Media.TITLE,
+                MediaStore.Audio.Media.ARTIST,
+                MediaStore.Audio.Media.ALBUM,
+                MediaStore.Audio.Media.DURATION,
+                MediaStore.Audio.Media.DATA
+        };
+        String sortOrder = MediaStore.Audio.Media.TITLE + " ASC";
 
-        Cursor cursor = db.query(
-                "songs",
-                null,
-                null,
-                null,
-                null,
-                null,
-                "title ASC"
-        );
+        try (Cursor cursor = context.getContentResolver().query(uri, projection, null, null, sortOrder)) {
+            if (cursor != null) {
+                int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID);
+                int titleColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE);
+                int artistColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST);
+                int albumColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM);
+                int durationColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION);
+                int pathColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
 
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                SongModel song = new SongModel();
-                song.setId(cursor.getLong(cursor.getColumnIndexOrThrow(SongTable.KEY_ID)));
-                song.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_TITLE)));
-                song.setArtist(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_ARTIST)));
-                song.setAlbum(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_ALBUM)));
-                song.setDuration(cursor.getLong(cursor.getColumnIndexOrThrow(SongTable.KEY_DURATION)));
-                song.setPath(cursor.getString(cursor.getColumnIndexOrThrow(SongTable.KEY_PATH)));
-                songList.add(song);
-            }
-            cursor.close();
-        }
+                while (cursor.moveToNext()) {
+                    long id = cursor.getLong(idColumn);
+                    String title = cursor.getString(titleColumn);
+                    String artist = cursor.getString(artistColumn);
+                    String album = cursor.getString(albumColumn);
+                    String duration = cursor.getString(durationColumn);
+                    String path = cursor.getString(pathColumn);
 
-        return songList;
-    }
-
-    @Override
-    public void importAudioFromUris(Context context, List<Uri> uris) {
-        Log.i("SongService", "Uris " + uris);
-        List<SongModel> songList = new ArrayList<>();
-
-        for (Uri uri : uris) {
-            try {
-                MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-
-                mmr.setDataSource(context, uri);
-
-                // Retrieve and log all available metadata
-                String title = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-                String artist = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
-                String album = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
-                String duration = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-                String genre = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_GENRE);
-                String mimeType = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_MIMETYPE);
-
-                Log.d("SongService", "Title: " + title);
-                Log.d("SongService", "Artist: " + artist);
-                Log.d("SongService", "Album: " + album);
-                Log.d("SongService", "Duration: " + duration);
-                Log.d("SongService", "Genre: " + genre);
-                Log.d("SongService", "MimeType: " + mimeType);
-
-                SongModel song = new SongModel();
-                song.setTitle(title != null ? title : "Unknown Title");
-                song.setArtist(artist != null ? artist : "Unknown Artist");
-                song.setAlbum(album != null ? album : "Unknown Album");
-                song.setDuration(duration != null ? Long.parseLong(duration) : 0);
-                song.setPath(uri.getPath());
-
-                songList.add(song);
-
-                mmr.release();
-            } catch (Exception e) {
-                Log.e("SongService", "Failed to retrieve metadata for uri: " + uri, e);
-            }
-        }
-
-        songList.forEach(this::addSong);
-    }
-
-
-    @Override
-    public void addSong(SongModel song) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        boolean isExist = this.checkSongExist(db, song);
-        if (isExist) return;
-
-        ContentValues values = getContentValues(song);
-
-        try {
-            long newRowId = db.replace("songs", null, values);
-            if (newRowId == -1) {
-                Log.e("SongService", "Failed to add song: " + song.getTitle());
-            } else {
-                Log.i("SongService", "Song added with Row ID: " + newRowId);
-                Log.i("SongService", "Song added with Path: " + song.getPath());
+                    SongModel songModel = new SongModel(id, title, artist, album, Long.parseLong(duration), path);
+                    songModels.add(songModel);
+                }
             }
         } catch (Exception e) {
-            Log.e("SongService", "Failed to add song: " + e);
+            Log.e("GetAllAudio", "Error fetching audio files", e);
         }
+
+        return songModels;
     }
 
-    @NonNull
-    private static ContentValues getContentValues(SongModel song) {
-        ContentValues values = new ContentValues();
-        values.put(SongTable.KEY_ID, song.getId());
-        values.put(SongTable.KEY_TITLE, song.getTitle());
-        values.put(SongTable.KEY_ARTIST, song.getArtist());
-        values.put(SongTable.KEY_ALBUM, song.getAlbum());
-        values.put(SongTable.KEY_DURATION, song.getDuration());
-        values.put(SongTable.KEY_PATH, song.getPath());
-        return values;
+    public static int findSongPositionByPath(String path, ArrayList<SongModel> songModels) {
+        for (int i = 0; i < songModels.size(); i++) {
+            if (songModels.get(i).getPath().equals(path)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
-    private boolean checkSongExist(SQLiteDatabase db, SongModel song) {
-        String selection = SongTable.KEY_ID + " = ?";
-        String[] selectionArgs = {song.getPath()};
+    public static byte[] getAlbumArt(String uri) throws IOException {
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        retriever.setDataSource(uri);
+        byte[] art = retriever.getEmbeddedPicture();
+        retriever.release();
+        return art;
+    }
 
-        Cursor cursor = db.query("songs", new String[]{SongTable.KEY_ID}, selection, selectionArgs, null, null, null);
 
-        if (cursor != null && cursor.moveToFirst()) {
-            Log.i("SongService", "Song with path already exists: " + song.getPath());
-            cursor.close();
+    public static boolean checkPermission(Activity activity, Context context) {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_MEDIA_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.READ_MEDIA_AUDIO)) {
+                new AlertDialog.Builder(context)
+                        .setTitle("Permission needed")
+                        .setMessage("This permission is needed to access your audio files.")
+                        .setPositiveButton("OK", (dialog, which) -> ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_MEDIA_AUDIO}, REQUEST_CODE))
+                        .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                        .create().show();
+            } else {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_MEDIA_AUDIO}, REQUEST_CODE);
+            }
+            return false;
+        } else {
             return true;
         }
-
-        if (cursor != null) {
-            cursor.close();
-        }
-        return false;
     }
 
-    @Override
-    public void deleteSong(String songId) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        // Start a transaction to ensure both deletions happen atomically
-        db.beginTransaction();
-        try {
-            // Delete from song_history first
-            String historySelection = SongHistoryTable.KEY_SONG_ID + " = ?";
-            String[] historySelectionArgs = {songId};
-
-            int deletedHistoryRows = db.delete(SongHistoryTable.TABLE_NAME, historySelection, historySelectionArgs);
-            Log.i("SongService", "Deleted " + deletedHistoryRows + " entries from song_history for song ID: " + songId);
-
-            // Delete from songs
-            String songSelection = SongTable.KEY_ID + " = ?";
-            String[] songSelectionArgs = {songId};
-
-            int deletedSongRows = db.delete(SongTable.TABLE_NAME, songSelection, songSelectionArgs);
-            if (deletedSongRows > 0) {
-                Log.i("SongService", "Song deleted with ID: " + songId);
-            } else {
-                Log.i("SongService", "No song found with ID: " + songId);
-            }
-
-            // Mark the transaction as successful
-            db.setTransactionSuccessful();
-        } catch (Exception e) {
-            Log.e("SongService", "Failed to delete song: " + e);
-        } finally {
-            // End the transaction
-            db.endTransaction();
-        }
+    public static void saveSongListToPreferences(Context context, ArrayList<SongModel> songList) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("music_player", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(songList);
+        editor.putString("song_list", json);
+        editor.apply();
     }
 
 }
