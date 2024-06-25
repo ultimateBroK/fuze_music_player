@@ -105,9 +105,14 @@
   
 - **Kết Quả Kiểm Thử**:
   (Mô tả kết quả kiểm thử và các lỗi phát hiện được.)
-Chức Năng: Tất cả các chức năng chính (phát nhạc, quản lý bài hát, hiển thị thông tin, phát nhạc nền) hoạt động đúng như mong đợi. Một số lỗi nhỏ đã được phát hiện và sửa chữa trong quá trình kiểm thử đơn vị và tích hợp.
+  
+Chức Năng: Tất cả các chức năng chính (phát nhạc, quản lý bài hát, hiển thị thông tin, phát nhạc nền) hoạt động đúng như mong đợi.
+ Một số lỗi nhỏ đã được phát hiện và sửa chữa trong quá trình kiểm thử đơn vị và tích hợp.
+
 Giao Diện Người Dùng: Giao diện thân thiện, dễ sử dụng. Một số lỗi nhỏ về giao diện đã được phát hiện và sửa chữa (ví dụ: lỗi hiển thị trên một số thiết bị có màn hình nhỏ).
+
 Tương Thích: Ứng dụng hoạt động tốt trên các thiết bị Android từ phiên bản 11.0 trở lên, bao gồm cả các thiết bị có độ phân giải và kích thước màn hình khác nhau.
+
 
 ## Kết Quả và Đánh Giá
 - **Đạt Được**:
