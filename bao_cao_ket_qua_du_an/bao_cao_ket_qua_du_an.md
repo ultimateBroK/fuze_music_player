@@ -127,11 +127,11 @@ Tương Thích: Ứng dụng hoạt động tốt trên các thiết bị Androi
 
 ## Kết Quả và Đánh Giá
 - **Đạt Được**:
-  (Tổng kết các thành tựu của dự án.)
+  - Ứng dụng đã xử lý được chức năng cơ bản của 1 ứng đụng nghe nhạc offline,  
 - **Hạn Chế**:
-  (Thảo luận về các hạn chế và khó khăn trong dự án.)
+  - Vấn đề giao tiếp của 1 thành viên trong nhóm gây ảnh hưởng nghiêm trọng đến tiến độ dự án
 - **Hướng Phát Triển Tương Lai**:
-  (Đề xuất các hướng phát triển tương lai cho dự án.)
+  - Cải thiện hiệu năng ứng dụng để tránh hiện tượng crash
 
 ## Phụ Lục
 - **Biểu Đồ**:
