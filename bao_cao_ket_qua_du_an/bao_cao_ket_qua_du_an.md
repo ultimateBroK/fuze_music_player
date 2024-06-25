@@ -11,7 +11,7 @@
 
 ## Tổng Quan Dự Án
 - **Mục Tiêu Dự Án**:
-  - Tạo ra 1 ứng dụng nghe nhạc offline, cung cấp cho người dùng một trải nghiệm nghe nhạc tiện lợi và không phụ thuộc vào kết nối internet. Với ứng dụng này, người dùng có thể tải về và lưu trữ các bài hát trực tiếp trên thiết bị của mình, sau đó nghe chúng mọi lúc mọi nơi mà không cần kết nối internet
+  - Tạo ra 1 ứng dụng nghe nhạc offline cơ bản, cung cấp cho người dùng một trải nghiệm nghe nhạc tiện lợi và không phụ thuộc vào kết nối internet. Với ứng dụng này, người dùng có thể tải về và lưu trữ các bài hát trực tiếp trên thiết bị của mình, sau đó nghe chúng mọi lúc mọi nơi mà không cần kết nối internet
 
   - Các tính năng: 
     - Đọc tất cả các file định dạng âm thanh như .mp3, .flac, .wav,...
