@@ -44,7 +44,7 @@
 
 ### 1.5 Sáng tạo và đổi mới
 - **Điểm đánh giá**: 0
-- **Nhận xét**: Chưa hoàn thành nhiệm vụ đúng thòi hạn -> thời gian sáng tạo đổi mới không có
+- **Nhận xét**: Chưa hoàn thành nhiệm vụ đúng thời hạn -> thời gian sáng tạo đổi mới không có
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 ## 3. Nguyễn Đức Hiếu
 ### 1.1 Đóng góp vào dự án
