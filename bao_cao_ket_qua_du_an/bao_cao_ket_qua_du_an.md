@@ -48,16 +48,26 @@
 
 ### Giai Đoạn Thiết Kế
 - **Thiết Kế Giao Diện**:
-  - Giao diện For You: ![image](https://github.com/ultimateBroK/fuze_music_player/assets/119409748/074d1363-423f-425f-8b65-40eb3c167040)
-  - Giao diện History: 
+  - Giao diện For You:
+    ![Giao diện For You](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/267ee77e-82c5-4694-808e-1c883fc93dbe)
+  - Giao diện History:
+    ![Giao diện History](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/a767dfa1-6b38-4a8c-b16b-e61b38891af8)
   - Giao diện Last Added:
+    ![Giao diện Last Added](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/e80ead13-8102-404d-956a-81ddc0fe7925)
   - Giao diện Songs:
+    ![Giao diện Songs](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/fb25d762-b415-4ef3-98c5-d49ffb000f10)
   - Giao diện Album:
+    ![Giao diện Albums](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/8a7f2f29-a6cd-4d3c-82c3-8ccefa486433)
   - Giao diện Album chi tiết:
+  - ![Giao diện Artist chi tiết](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/1ac00e25-33b9-4e13-8b24-8bf80c912e7f)
   - Giao diện Artists:
+  - ![Giao diện Artists](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/d9ab6ab6-a0ff-4570-a233-5bd6e800c466)
   - Giao diện Artist chi tiết:
+  - ![Giao diện Artist chi tiết](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/18de7a04-1ee2-4909-8b22-15be814b79ac)
   - Giao diện chơi nhạc:
+  - ![Giao diện chơi nhạc](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/6e99fb3e-8b21-4842-b6dd-7c41642d0e75)
   - Giao diện hàng đợi:
+  - ![Giao diện hàng đợi](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/6d679898-b910-462f-bd89-3f6c65c47d73)
 
 - **Thiết Kế Kiến Trúc**:
   (Mô tả kiến trúc tổng thể của ứng dụng.)
