@@ -30,14 +30,14 @@ Người dùng phổ thông: Những người mới tìm đến ứng dụng và
 ## Quá Trình Phát Triển
 ### Giai Đoạn Khảo Sát và Thu Thập Yêu Cầu
 - **Yêu Cầu Người Dùng**:
-+ Ứng dụng phải có giao diện đơn giản, dễ sử dụng.
-+ Người dùng có thể nghe nhạc mà không cần kết nối internet.
-+ Hỗ trợ quản lý các bài hát theo album, nghệ sĩ, và danh sách phát.
-+ Cho phép tạo và quản lý danh sách phát cá nhân.
-+ Hiển thị các bài hát mới thêm gần đây và lịch sử phát nhạc.
-+ Cung cấp chức năng tìm kiếm nhanh các bài hát, album, và nghệ sĩ.
-+ Cho phép người dùng thêm, xóa, và sắp xếp thứ tự bài hát trong danh sách phát.
-+ Có thể phát nhạc trong nền và hiển thị điều khiển trên màn hình khóa.
+- Ứng dụng phải có giao diện đơn giản, dễ sử dụng.
+- Người dùng có thể nghe nhạc mà không cần kết nối internet.
+- Hỗ trợ quản lý các bài hát theo album, nghệ sĩ, và danh sách phát.
+- Cho phép tạo và quản lý danh sách phát cá nhân.
+- Hiển thị các bài hát mới thêm gần đây và lịch sử phát nhạc.
+- Cung cấp chức năng tìm kiếm nhanh các bài hát, album, và nghệ sĩ.
+- Cho phép người dùng thêm, xóa, và sắp xếp thứ tự bài hát trong danh sách phát.
+- Có thể phát nhạc trong nền và hiển thị điều khiển trên màn hình khóa.
 
 - **Yêu Cầu Hệ Thống**:
 + Ứng dụng phải hoạt động ổn định trên các thiết bị Android từ phiên bản 5.0 trở lên.
