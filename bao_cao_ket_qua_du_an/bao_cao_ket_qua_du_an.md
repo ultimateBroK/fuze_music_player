@@ -157,4 +157,4 @@ Tương Thích: Ứng dụng hoạt động tốt trên các thiết bị Androi
 - **Biểu Đồ**:
   (Các biểu đồ, sơ đồ liên quan.)
 - **Mã Nguồn**:
-  (Tóm tắt hoặc liên kết đến mã nguồn của dự án.)
+  - https://github.com/ultimateBroK/fuze_music_player
