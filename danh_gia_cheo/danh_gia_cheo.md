@@ -46,7 +46,7 @@
 - **Điểm đánh giá**: 0
 - **Nhận xét**: Chưa hoàn thành nhiệm vụ đúng thòi hạn -> thời gian sáng tạo đổi mới không có
 -------------------------------------------------------------------------------------------------------------------------------------------------------
-## 3. Nguyễn Tuấn Hoàng
+## 3. Vũ Tuấn Hoàng
 ### 1.1 Đóng góp vào dự án
 - **Điểm đánh giá**: 3
 - **Nhận xét**: Thể hiện sự đóng góp khi mới đầu dựng xây dự án
