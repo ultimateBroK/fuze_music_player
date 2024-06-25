@@ -1,2 +1,2 @@
 # Fuze Music Player
-A simple music player
+A simple offline music player
