@@ -39,7 +39,7 @@
   - Có thể phát nhạc trong nền và hiển thị điều khiển trên màn hình khóa.
 
 - **Yêu Cầu Hệ Thống**:
-  - Ứng dụng phải hoạt động ổn định trên các thiết bị Android từ phiên bản 5.0 trở lên.
+  - Ứng dụng phải hoạt động ổn định trên các thiết bị Android từ phiên bản 11.0 trở lên. ([Tỉ lê phân phối phiên bản Android 5/2023](https://tinhte.vn/thread/ti-le-phan-phoi-phien-ban-android-thang-5-android-13-co-gan-15-thi-phan-11-van-dan-dau.3677386/))
   - Dung lượng ứng dụng nhẹ, không tiêu tốn nhiều tài nguyên hệ thống.
   - Đảm bảo bảo mật và quyền riêng tư của người dùng.
   - Hỗ trợ nhiều định dạng file nhạc như MP3, AAC, FLAC.
