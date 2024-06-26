@@ -53,7 +53,7 @@
   - Giao diện History:
     - ![Giao diện History](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/88fec06e-57c0-4ef3-9812-4749d71e20da)
   - Giao diện Last Added:
-    - ![Giao diện Last Added](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/c367c0b9-c737-4d6c-9c14-5849752df53a)
+    - ![Giao diện Last Added](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/2bbeeecd-f35a-4c92-a20f-124e345f0e6a)
   - Giao diện Songs:
     - ![Giao diện Songs](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/3b2a5a07-3fe6-49b5-aa2d-37b9f0311116)
   - Giao diện Album:
