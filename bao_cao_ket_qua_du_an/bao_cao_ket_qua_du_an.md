@@ -74,7 +74,7 @@
 
 ### Giai Đoạn Lập Trình
 - **Công Nghệ Sử Dụng**:
-  - Ngôn ngữ lập trình: Java hoặc Kotlin.
+  - Ngôn ngữ lập trình: Java.
   - Môi trường phát triển: Android Studio.
   - Thư viện và công cụ:
     - MediaPlayer: Để phát nhạc.  
