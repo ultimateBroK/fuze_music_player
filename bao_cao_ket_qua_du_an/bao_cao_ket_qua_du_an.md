@@ -63,7 +63,7 @@
   - Giao diện Artists:
     - ![Giao diện Artists](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/5904279c-9932-4ff6-bebf-195654b6f1f8)
   - Giao diện Artist chi tiết:
-    - ![Giao diện Artist chi tiết](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/194081da-b8b1-4af9-8d5f-b8da31c9cd23)
+    - ![Giao diện Album chi tiết](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/a8b89048-5296-4885-9231-d49bd7531d62)
   - Giao diện chơi nhạc:
     - ![Giao diện chơi nhạc](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/ce61a582-3d69-4dd1-b472-6e225080af56)
   - Giao diện hàng đợi:
