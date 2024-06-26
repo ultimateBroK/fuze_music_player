@@ -74,9 +74,9 @@
 
 ### Giai Đoạn Lập Trình
 - **Công Nghệ Sử Dụng**:
-  1.Ngôn ngữ lập trình: Java hoặc Kotlin.
-  2.Môi trường phát triển: Android Studio.
-  3.Thư viện và công cụ:
+  - Ngôn ngữ lập trình: Java hoặc Kotlin.
+  - Môi trường phát triển: Android Studio.
+  - Thư viện và công cụ:
     - MediaPlayer: Để phát nhạc.  
     - RecyclerView: Để hiển thị danh sách bài hát, album, nghệ sĩ.
     - Glide: Để tải và hiển thị ảnh bìa album.
