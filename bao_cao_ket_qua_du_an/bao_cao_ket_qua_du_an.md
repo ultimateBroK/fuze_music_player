@@ -34,6 +34,7 @@
   - Hỗ trợ quản lý các bài hát theo album, nghệ sĩ.
   - Hiển thị các bài hát mới thêm gần đây và lịch sử phát nhạc.
   - Có thể phát nhạc trong nền.
+  - Cung cấp chức năng tìm kiếm nhanh các bài hát, album, và nghệ sĩ.
 
 - **Yêu Cầu Hệ Thống**:
   - Ứng dụng phải hoạt động ổn định trên các thiết bị Android từ phiên bản 11.0 trở lên. ([Tỉ lệ phân phối phiên bản Android 5/2023](https://tinhte.vn/thread/ti-le-phan-phoi-phien-ban-android-thang-5-android-13-co-gan-15-thi-phan-11-van-dan-dau.3677386/))
