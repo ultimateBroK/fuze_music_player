@@ -136,6 +136,7 @@
 - **Đạt Được**:
   - Ứng dụng đã xử lý được chức năng cơ bản của 1 ứng dụng nghe nhạc offline,  
 - **Hạn Chế**:
+  - Ứng dụng chưa phát triển chức năng tìm kiếm và setting
   - Vấn đề giao tiếp của 1 thành viên trong nhóm gây ảnh hưởng nghiêm trọng đến tiến độ dự án
 - **Hướng Phát Triển Tương Lai**:
   - Cải thiện hiệu năng ứng dụng để tránh hiện tượng crash
