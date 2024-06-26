@@ -51,23 +51,23 @@
   - Giao diện For You:
     - ![Giao diện For You](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/267ee77e-82c5-4694-808e-1c883fc93dbe)
   - Giao diện History:
-    - ![Giao diện History](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/a767dfa1-6b38-4a8c-b16b-e61b38891af8)
+    - ![Giao diện History](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/88fec06e-57c0-4ef3-9812-4749d71e20da)
   - Giao diện Last Added:
-    - ![Giao diện Last Added](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/e80ead13-8102-404d-956a-81ddc0fe7925)
+    - ![Giao diện Last Added](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/c367c0b9-c737-4d6c-9c14-5849752df53a)
   - Giao diện Songs:
-    - ![Giao diện Songs](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/fb25d762-b415-4ef3-98c5-d49ffb000f10)
+    - ![Giao diện Songs](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/3b2a5a07-3fe6-49b5-aa2d-37b9f0311116)
   - Giao diện Album:
-    - ![Giao diện Albums](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/8a7f2f29-a6cd-4d3c-82c3-8ccefa486433)
+    - ![Giao diện Albums](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/93d770eb-8e5f-4462-9922-0f571c356f44)
   - Giao diện Album chi tiết:
-    - ![Giao diện Artist chi tiết](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/1ac00e25-33b9-4e13-8b24-8bf80c912e7f)
+    - ![Giao diện Albums](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/60aa30ef-afdb-48b1-aec0-f1255e54b396)
   - Giao diện Artists:
-    - ![Giao diện Artists](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/d9ab6ab6-a0ff-4570-a233-5bd6e800c466)
+    - ![Giao diện Artists](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/5904279c-9932-4ff6-bebf-195654b6f1f8)
   - Giao diện Artist chi tiết:
-    - ![Giao diện Artist chi tiết](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/18de7a04-1ee2-4909-8b22-15be814b79ac)
+    - ![Giao diện Artist chi tiết](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/194081da-b8b1-4af9-8d5f-b8da31c9cd23)
   - Giao diện chơi nhạc:
-    - ![Giao diện chơi nhạc](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/6e99fb3e-8b21-4842-b6dd-7c41642d0e75)
+    - ![Giao diện chơi nhạc](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/ce61a582-3d69-4dd1-b472-6e225080af56)
   - Giao diện hàng đợi:
-    - ![Giao diện hàng đợi](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/6d679898-b910-462f-bd89-3f6c65c47d73)
+    - ![Giao diện hàng đợi](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/790cf0a6-abeb-4c64-83f2-ac10bdbe985a)
 
 - **Thiết Kế Kiến Trúc**:
   (Mô tả kiến trúc tổng thể của ứng dụng.)
