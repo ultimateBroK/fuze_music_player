@@ -13,11 +13,11 @@
 - **Mục Tiêu Dự Án**:
   - Tạo ra 1 ứng dụng nghe nhạc offline cơ bản, cung cấp cho người dùng một trải nghiệm nghe nhạc tiện lợi và không phụ thuộc vào kết nối internet. Với ứng dụng này, người dùng có thể tải về và lưu trữ các bài hát trực tiếp trên thiết bị của mình, sau đó nghe chúng mọi lúc mọi nơi mà không cần kết nối internet
 
-  - Các tính năng: 
+  - Các tính năng:
+    - Giao diện đơn giản, đẹp mắt, dễ thao tác
     - Đọc tất cả các file định dạng âm thanh như .mp3, .flac, .wav,...
     - Phát nhạc theo thứ tự, ngẫu nhiên hoặc lặp lại
     - Tự động quét tất cả các tệp âm thanh từ thư mục trong máy
-    - Lưu bài hát yêu thích và tùy chỉnh danh sách phát nhạc
     - Xem danh sách bài hát, nghệ sĩ, album
     - Tìm kiếm bài hát theo từ khoá
 
