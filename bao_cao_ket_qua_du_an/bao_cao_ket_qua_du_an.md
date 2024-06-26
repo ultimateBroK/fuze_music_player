@@ -59,7 +59,7 @@
   - Giao diện Album:
     - ![Giao diện Albums](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/93d770eb-8e5f-4462-9922-0f571c356f44)
   - Giao diện Album chi tiết:
-    - ![Giao diện Albums](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/60aa30ef-afdb-48b1-aec0-f1255e54b396)
+    - ![Giao diện Album chi tiết](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/56ce8e8c-fab7-4106-a578-77cfe497eccb)
   - Giao diện Artists:
     - ![Giao diện Artists](https://github.com/ultimateBroK/fuze_music_player/assets/67256125/5904279c-9932-4ff6-bebf-195654b6f1f8)
   - Giao diện Artist chi tiết:
