@@ -145,3 +145,4 @@
   (Các biểu đồ, sơ đồ liên quan.)
 - **Mã Nguồn**:
   - https://github.com/ultimateBroK/fuze_music_player
+  - https://www.figma.com/design/xHAzOtnbujB5Qqmwm7XShn/Fuze-Music-Player?node-id=0-1&t=TK8T2hW6E03kZy6m-1
