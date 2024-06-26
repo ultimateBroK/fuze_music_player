@@ -31,12 +31,9 @@
 - **Yêu Cầu Người Dùng**:
   - Ứng dụng phải có giao diện đơn giản, dễ sử dụng.
   - Người dùng có thể nghe nhạc mà không cần kết nối internet.
-  - Hỗ trợ quản lý các bài hát theo album, nghệ sĩ, và danh sách phát.
-  - Cho phép tạo và quản lý danh sách phát cá nhân.
+  - Hỗ trợ quản lý các bài hát theo album, nghệ sĩ.
   - Hiển thị các bài hát mới thêm gần đây và lịch sử phát nhạc.
-  - Cung cấp chức năng tìm kiếm nhanh các bài hát, album, và nghệ sĩ.
-  - Cho phép người dùng thêm, xóa, và sắp xếp thứ tự bài hát trong danh sách phát.
-  - Có thể phát nhạc trong nền và hiển thị điều khiển trên màn hình khóa.
+  - Có thể phát nhạc trong nền.
 
 - **Yêu Cầu Hệ Thống**:
   - Ứng dụng phải hoạt động ổn định trên các thiết bị Android từ phiên bản 11.0 trở lên. ([Tỉ lệ phân phối phiên bản Android 5/2023](https://tinhte.vn/thread/ti-le-phan-phoi-phien-ban-android-thang-5-android-13-co-gan-15-thi-phan-11-van-dan-dau.3677386/))
