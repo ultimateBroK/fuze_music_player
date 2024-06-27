@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        registerReceiver(songInfoReceiver, new IntentFilter("com.example.music_player.CURRENT_SONG_INFO"));
+        registerReceiver(songInfoReceiver, new IntentFilter("com.example.music_player.CURRENT_SONG_INFO"), Context.RECEIVER_NOT_EXPORTED);
 
         RelativeLayout playingStatusLayout = findViewById(R.id.playing_status);
         playingStatusLayout.setOnClickListener(v -> {
