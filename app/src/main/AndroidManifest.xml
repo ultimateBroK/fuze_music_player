@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FuzeMusicPlayer"
-        tools:targetApi="31">
+        tools:targetApi="30">
         <activity
             android:name=".activity.PlayerActivity"
             android:exported="false" />
